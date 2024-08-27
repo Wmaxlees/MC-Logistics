@@ -1,0 +1,23 @@
+{
+    "type": "recipe",
+    "count": 1,
+    "crafter": "toolmaker_custom",
+    "inputs": [
+      {
+        "count": 3,
+        "tag": "forge:plates/iron"
+      },
+      {
+        "count": 2,
+        "item": "gtceu:iron_rod"
+      },
+      {
+        "item": "gtceu:iron_screw"
+      }
+    ],
+    "tool": "forge:tools/files",
+    "tool": "forge:tools/hammers",
+    "tool": "forge:tools/screwdriver",
+    "result": "gtceu:iron_wire_cutter",
+    "show-tooltip": true
+  }

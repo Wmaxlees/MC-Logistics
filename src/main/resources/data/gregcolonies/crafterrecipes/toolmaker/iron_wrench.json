@@ -1,0 +1,14 @@
+{
+    "type": "recipe",
+    "count": 1,
+    "crafter": "toolmaker_custom",
+    "inputs": [
+      {
+        "count": 4,
+        "tag": "forge:plates/iron"
+      }
+    ],
+    "tool": "forge:tools/hammers",
+    "result": "gtceu:iron_wrench",
+    "show-tooltip": true
+  }

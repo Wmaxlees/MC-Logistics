@@ -1,0 +1,18 @@
+{
+    "type": "recipe",
+    "count": 1,
+    "crafter": "toolmaker_custom",
+    "inputs": [
+      {
+        "count": 2,
+        "tag": "gtceu:iron_rod"
+      },
+      {
+        "item": "gtceu:treated_wood_rod"
+      }
+    ],
+    "tool": "forge:tools/files",
+    "tool": "forge:tools/hammers",
+    "result": "gtceu:iron_saw",
+    "show-tooltip": true
+  }

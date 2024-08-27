@@ -1,0 +1,19 @@
+{
+    "type": "recipe",
+    "count": 1,
+    "crafter": "toolmaker_custom",
+    "inputs": [
+      {
+        "count": 3,
+        "tag": "gtceu:iron_rod"
+      },
+      {
+        "count": 4,
+        "item": "forge:dyes/blue"
+      }
+    ],
+    "tool": "forge:tools/files",
+    "tool": "forge:tools/hammers",
+    "result": "gtceu:iron_crowbar",
+    "show-tooltip": true
+  }

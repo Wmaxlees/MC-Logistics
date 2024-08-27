@@ -1,0 +1,16 @@
+{
+    "type": "recipe",
+    "count": 1,
+    "crafter": "toolmaker_custom",
+    "inputs": [
+      {
+        "count": 2,
+        "tag": "forge:plates/iron"
+      },
+      {
+        "item": "gtceu:treated_wood_rod"
+      }
+    ],
+    "result": "gtceu:iron_file",
+    "show-tooltip": true
+  }

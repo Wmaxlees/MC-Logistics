@@ -1,0 +1,24 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "key": {
+      "B": {
+        "item": "gtceu:bronze_plate"
+      },
+      "T": {
+        "item": "structurize:sceptergold"
+      },
+      "X": {
+        "tag": "minecraft:planks"
+      }
+    },
+    "pattern": [
+      "XTX",
+      "BBB",
+      "XXX"
+    ],
+    "result": {
+      "item": "gregcolonies:blockhuttoolmaker"
+    },
+    "show_notification": true
+  }

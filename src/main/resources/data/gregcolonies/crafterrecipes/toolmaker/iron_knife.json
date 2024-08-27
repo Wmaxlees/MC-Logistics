@@ -1,0 +1,17 @@
+{
+    "type": "recipe",
+    "count": 1,
+    "crafter": "toolmaker_custom",
+    "inputs": [
+      {
+        "tag": "forge:plates/iron"
+      },
+      {
+        "item": "gtceu:treated_wood_rod"
+      }
+    ],
+    "tool": "forge:tools/files",
+    "tool": "forge:tools/hammers",
+    "result": "gtceu:iron_knife",
+    "show-tooltip": true
+  }

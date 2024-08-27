@@ -1,0 +1,16 @@
+{
+    "type": "recipe",
+    "count": 1,
+    "crafter": "toolmaker_custom",
+    "inputs": [
+      {
+        "count": 6,
+        "item": "minecraft:ingot_iron"
+      },
+      {
+        "item": "gtceu:treated_wood_rod"
+      }
+    ],
+    "result": "gtceu:iron_hammer",
+    "show-tooltip": true
+  }

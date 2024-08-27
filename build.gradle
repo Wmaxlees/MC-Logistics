@@ -1,0 +1,218 @@
+plugins {
+    id "dev.architectury.loom" version "1.6-SNAPSHOT"
+    id "maven-publish"
+}
+
+base {
+    archivesName = mod_id
+}
+
+version = mod_version
+group = mod_group_id
+
+java {
+    sourceCompatibility = targetCompatibility = JavaVersion.VERSION_17
+}
+
+
+def generatedResources = file("src/generated/resources/")
+
+sourceSets {
+    main {
+        resources.srcDir generatedResources
+    }
+}
+
+loom {
+    // use this if you are using the official mojang mappings
+    // and want loom to stop warning you about their license
+    silentMojangMappingsLicense()
+
+    // since loom 0.10, you are **required** to use the
+    // "forge" block to configure forge-specific features,
+    // such as the mixinConfigs array or datagen
+    forge {
+        // specify the mixin configs used in this mod
+        // this will be added to the jar manifest as well!
+        mixinConfigs = [
+        ]
+
+        // missing access transformers?
+        // don't worry, you can still use them!
+        // note that your AT *MUST* be located at
+        // src/main/resources/META-INF/accesstransformer.cfg
+        // to work as there is currently no config option to change this.
+        // also, any names used in your access transformer will need to be
+        // in SRG mapped ("func_" / "field_" with MCP class names) to work!
+        // (both of these things may be subject to change in the future)
+    }
+
+    runs {
+        data {
+            runDir "run-data"
+            data()
+            programArgs "--mod", "gregcolonies"
+            programArgs "--server"
+            programArgs "--output", generatedResources.absolutePath
+            programArgs "--existing", file("src/main/resources/").absolutePath
+        }
+    }
+}
+
+
+println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
+
+repositories {
+    mavenCentral()
+    maven {
+        name "MineColonies"
+        url "https://ldtteam.jfrog.io/ldtteam/modding"
+    }
+    maven {
+        name "FirstDarkDev"
+        url "https://maven.firstdarkdev.xyz/snapshots/"
+    }
+    maven {
+        name "Quilt"
+        url "https://maven.quiltmc.org/repository/release/"
+    }
+    maven {
+        name "ParchmentMC"
+        url "https://maven.parchmentmc.org"
+    }
+    maven {
+        url "https://maven.saps.dev/releases/"
+        content {
+            includeGroup "dev.latvian.mods"
+        }
+    }
+    maven { // Registrate
+        url "https://maven.tterrag.com/"
+        content {
+            // need to be specific here due to version overlaps
+            includeGroup("com.jozufozu.flywheel")
+            includeGroup("com.tterrag.registrate")
+            includeGroup("com.simibubi.create")
+        }
+    }
+    maven {
+        // Patchouli, JEI
+        name "BlameJared"
+        url "https://maven.blamejared.com/"
+    }
+    maven {
+        url "https://maven.theillusivec4.top/"
+    }
+    maven {
+        // Curse Forge File
+        url "https://cursemaven.com/"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${minecraft_version}"
+    forge "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+
+    mappings loom.layered {
+        it.mappings("org.quiltmc:quilt-mappings:${minecraft_version}+build.${quilt_mappings}:intermediary-v2")
+        it.parchment("org.parchmentmc.data:parchment-${minecraft_version}:${parchment_mappings}@zip")
+        it.officialMojangMappings { nameSyntheticMembers = false }
+    }
+
+    modImplementation("com.ldtteam:minecolonies:${minecolonies_version}")
+    modImplementation("com.ldtteam:structurize:${structurize_version}")
+    modImplementation("com.ldtteam:multipiston:${multipiston_version}")
+    modImplementation("com.ldtteam:domum_ornamentum:${domumornamentum_version}:universal")
+    modImplementation("com.ldtteam:blockui:${blockui_version}")
+
+    modCompileOnly("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}") { transitive = false }
+    modCompileOnly("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}") { transitive = false }
+
+    modImplementation("com.gregtechceu.gtceu:gtceu-${minecraft_version}:${gregtechceu_version}") { transitive = false }
+    modImplementation("com.lowdragmc.ldlib:ldlib-forge-${minecraft_version}:${ldlib_version}") { transitive = false }
+    modImplementation("com.tterrag.registrate:Registrate:${registrate_version}")
+    modImplementation("dev.latvian.mods:kubejs-forge:${kubejs_version}")
+
+    modRuntimeOnly("dev.toma.configuration:configuration-forge-${minecraft_version}:${configuration_version}")
+    modRuntimeOnly("mezz.jei:jei-${minecraft_version}-forge:${jei_version}") { transitive = false }
+
+    // Mixin Extras
+    implementation(annotationProcessor("io.github.llamalad7:mixinextras-common:${mixinextras_version}"))
+    implementation(include("io.github.llamalad7:mixinextras-forge:${mixinextras_version}"))
+
+    // lombok
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+}
+
+java {
+    // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
+    // if it is present.
+    // If you remove this line, sources will not be generated.
+    withSourcesJar()
+}
+
+processResources {
+    // set up properties for filling into metadata
+    var properties = [
+            "mod_license": mod_license,
+            "mod_id": mod_id,
+            "mod_version": mod_version,
+            "mod_name": mod_name,
+            "mod_authors": mod_authors,
+            "mod_description": mod_description,
+            "forge_version": forge_version.split("\\.")[0], // only specify major version of forge
+            "forge_version_range": forge_version_range,
+            "minecraft_version": minecraft_version,
+            "minecraft_version_range": minecraft_version_range,
+            "gregtechceu_version": gregtechceu_version,
+            "minecolonies_version": minecolonies_version,
+            "loader_version_range": loader_version_range
+    ]
+    inputs.properties(properties)
+
+    filesMatching("META-INF/mods.toml") {
+        expand properties
+    }
+}
+
+// Example for how to get properties into the manifest for reading at runtime.
+tasks.named('jar', Jar).configure {
+    manifest {
+        attributes([
+                'Specification-Title'     : mod_id,
+                'Specification-Vendor'    : mod_authors,
+                'Specification-Version'   : '1', // We are version 1 of ourselves
+                'Implementation-Title'    : project.name,
+                'Implementation-Version'  : project.jar.archiveVersion,
+                'Implementation-Vendor'   : mod_authors,
+                'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
+}
+
+// However if you are in a multi-project build, dev time needs unobfed jar files, so you can delay the obfuscation until publishing by doing:
+// tasks.named('publish').configure {
+//     dependsOn 'reobfJar'
+// }
+
+// Example configuration to allow publishing using the maven-publish plugin
+publishing {
+    publications {
+        register('mavenJava', MavenPublication) {
+            artifact jar
+        }
+    }
+    repositories {
+        maven {
+            url "file://${project.projectDir}/mcmodsrepo"
+        }
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+}

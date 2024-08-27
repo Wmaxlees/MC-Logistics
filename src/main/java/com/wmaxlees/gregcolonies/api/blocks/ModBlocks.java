@@ -1,0 +1,7 @@
+package com.wmaxlees.gregcolonies.api.blocks;
+
+import com.minecolonies.api.blocks.AbstractBlockHut;
+
+public final class ModBlocks {
+    public static AbstractBlockHut<? extends AbstractBlockHut<?>> blockHutToolmaker;
+}
