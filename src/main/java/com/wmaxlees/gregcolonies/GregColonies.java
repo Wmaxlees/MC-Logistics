@@ -1,67 +1,61 @@
 package com.wmaxlees.gregcolonies;
 
 import com.mojang.logging.LogUtils;
-import com.wmaxlees.gregcolonies.api.colony.buildings.ModBuildings;
+import com.wmaxlees.gregcolonies.api.util.constant.Constants;
 import com.wmaxlees.gregcolonies.apiimp.initializer.*;
 import com.wmaxlees.gregcolonies.core.event.EventHandler;
-import com.wmaxlees.gregcolonies.core.generation.defaults.GatherDataHandler;
-
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.NewRegistryEvent;
-
 import org.slf4j.Logger;
 
 @Mod(GregColonies.MODID)
 public class GregColonies {
-    // Define mod id in a common place for everything to reference
-    public static final String MODID = "gregcolonies";
-    // Directly reference a slf4j logger
-    private static final Logger LOGGER = LogUtils.getLogger();
+  // Define mod id in a common place for everything to reference
+  public static final String MODID = Constants.MOD_ID;
+  // Directly reference a slf4j logger
+  private static final Logger LOGGER = LogUtils.getLogger();
 
-    public GregColonies() {
-        TileEntityInitializer.BLOCK_ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
-        GregColoniesModJobsInitializer jobsInitializer = new GregColoniesModJobsInitializer();
-        jobsInitializer.RegisterJobs();
-        GregColoniesModBuildingsInitializer buildingsInitializer = new GregColoniesModBuildingsInitializer();
-        buildingsInitializer.RegisterBuildings();
+  public GregColonies() {
+    TileEntityInitializer.BLOCK_ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
+    GregColoniesModJobsInitializer jobsInitializer = new GregColoniesModJobsInitializer();
+    jobsInitializer.RegisterJobs();
+    GregColoniesModBuildingsInitializer buildingsInitializer =
+        new GregColoniesModBuildingsInitializer();
+    buildingsInitializer.RegisterBuildings();
 
-        Mod.EventBusSubscriber.Bus.FORGE.bus().get().register(EventHandler.class);
+    Mod.EventBusSubscriber.Bus.FORGE.bus().get().register(EventHandler.class);
 
-        Mod.EventBusSubscriber.Bus.FORGE.bus().get().register(this.getClass());
-        Mod.EventBusSubscriber.Bus.MOD.bus().get().register(this.getClass());
+    Mod.EventBusSubscriber.Bus.FORGE.bus().get().register(this.getClass());
+    Mod.EventBusSubscriber.Bus.MOD.bus().get().register(this.getClass());
+  }
 
-        Mod.EventBusSubscriber.Bus.MOD.bus().get().register(GatherDataHandler.class);
-    }
+  // You can use SubscribeEvent and let the Event Bus discover methods to call
+  @SubscribeEvent
+  public void onServerStarting(ServerStartingEvent event) {
+    // Do something when the server starts
+    LOGGER.info("HELLO from server starting");
+  }
 
-    // You can use SubscribeEvent and let the Event Bus discover methods to call
+  @SubscribeEvent
+  public static void registerNewRegistries(final NewRegistryEvent event) {
+    LOGGER.info("Registering!!");
+  }
+
+  // You can use EventBusSubscriber to automatically register all static methods
+  // in the class annotated with @SubscribeEvent
+  @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+  public static class ClientModEvents {
     @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event) {
-        // Do something when the server starts
-        LOGGER.info("HELLO from server starting");
+    public static void onClientSetup(FMLClientSetupEvent event) {
+      // Some client setup code
+      LOGGER.info("HELLO FROM CLIENT SETUP");
+      LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
     }
-
-    @SubscribeEvent
-    public static void registerNewRegistries(final NewRegistryEvent event) {
-        LOGGER.info("Registering!!");
-    }
-
-    // You can use EventBusSubscriber to automatically register all static methods
-    // in the class annotated with @SubscribeEvent
-    @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-    public static class ClientModEvents {
-        @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event) {
-            // Some client setup code
-            LOGGER.info("HELLO FROM CLIENT SETUP");
-            LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
-        }
-    }
+  }
 }
