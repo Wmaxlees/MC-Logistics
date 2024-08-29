@@ -1,6 +1,7 @@
 package com.wmaxlees.gregcolonies.data;
 
 import com.wmaxlees.gregcolonies.data.recipe.generated.ToolHeadRecipeHandler;
+import com.wmaxlees.gregcolonies.data.recipe.generated.ToolRecipeHandler;
 import java.util.function.Consumer;
 import net.minecraft.data.recipes.FinishedRecipe;
 
@@ -18,5 +19,6 @@ public class GregColoniesRecipes {
 
   public static void toolmakerRecipeAddition(Consumer<FinishedRecipe> originalConsumer) {
     ToolHeadRecipeHandler.init(originalConsumer);
+    ToolRecipeHandler.init(originalConsumer);
   }
 }

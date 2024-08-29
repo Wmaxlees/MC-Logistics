@@ -100,14 +100,19 @@ public class ToolHeadRecipeHandler {
       return;
     }
 
-    CustomRecipeProvider.CustomRecipeBuilder.create(
-            ModJobs.TOOL_PART_SMITH_ID.getPath(),
-            MODULE_CUSTOM,
-            String.format("%s_%s_head", tool.name, material.getName()))
-        .result(toolHeadStack)
-        .inputs(inputItems.build().collect(Collectors.toList()))
-        .requiredTool(ToolType.HAMMER)
-        .build(provider);
+    CustomRecipeProvider.CustomRecipeBuilder builder =
+        CustomRecipeProvider.CustomRecipeBuilder.create(
+                ModJobs.TOOL_PART_SMITH_ID.getPath(),
+                MODULE_CUSTOM,
+                String.format("%s_%s_head", tool.name, material.getName()))
+            .result(toolHeadStack)
+            .inputs(inputItems.build().collect(Collectors.toList()));
+
+    if (requireHammerTool) {
+      builder.requiredTool(ToolType.HAMMER);
+    }
+
+    builder.build(provider);
   }
 
   private static void processToolHead(Consumer<FinishedRecipe> provider, Material material) {
