@@ -116,11 +116,6 @@ public class ToolHeadRecipeHandler {
   }
 
   private static void processToolHead(Consumer<FinishedRecipe> provider, Material material) {
-    UnificationEntry plate = new UnificationEntry(TagPrefix.plate, material);
-    UnificationEntry ingot =
-        new UnificationEntry(
-            material.hasProperty(PropertyKey.GEM) ? TagPrefix.gem : TagPrefix.ingot, material);
-
     if (material.hasFlag(GENERATE_PLATE)) {
       addToolHeadRecipe(provider, material, GTToolType.MINING_HAMMER, 6, 0, 0, true);
 
