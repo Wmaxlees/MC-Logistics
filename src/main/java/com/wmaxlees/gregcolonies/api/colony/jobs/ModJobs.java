@@ -8,9 +8,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.registries.RegistryObject;
 
 public final class ModJobs {
+  public static final ResourceLocation TOOL_PART_SMITH_ID =
+      new ResourceLocation(Constants.MINECOLONIES_MOD_ID, "toolpartsmith");
   public static final ResourceLocation TOOLMAKER_ID =
       new ResourceLocation(Constants.MINECOLONIES_MOD_ID, "toolmaker");
 
+  public static RegistryObject<JobEntry> toolpartsmith;
   public static RegistryObject<JobEntry> toolmaker;
 
   private ModJobs() {

@@ -54,6 +54,14 @@ public class GregColoniesDynamicDataPack implements PackResources {
     DATA.put(getRecipeLocation(recipeId), recipeJson.toString().getBytes(StandardCharsets.UTF_8));
   }
 
+  public static void addCustomRecipe(FinishedRecipe recipe) {
+    JsonObject recipeJson = recipe.serializeRecipe();
+    ResourceLocation recipeId = recipe.getId();
+    DATA.put(
+        getCustomCrafterRecipeLocation(recipeId),
+        recipeJson.toString().getBytes(StandardCharsets.UTF_8));
+  }
+
   @Nullable
   @Override
   public IoSupplier<InputStream> getRootResource(String... elements) {
@@ -120,5 +128,10 @@ public class GregColoniesDynamicDataPack implements PackResources {
   public static ResourceLocation getRecipeLocation(ResourceLocation recipeId) {
     return new ResourceLocation(
         recipeId.getNamespace(), String.join("", "recipes/", recipeId.getPath(), ".json"));
+  }
+
+  public static ResourceLocation getCustomCrafterRecipeLocation(ResourceLocation recipeId) {
+    return new ResourceLocation(
+        recipeId.getNamespace(), String.join("", "crafterrecipes/", recipeId.getPath(), ".json"));
   }
 }

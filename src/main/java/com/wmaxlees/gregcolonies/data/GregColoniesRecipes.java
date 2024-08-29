@@ -14,7 +14,9 @@ public class GregColoniesRecipes {
    * This should also be used for recipes that need
    * to respond to a config option in ConfigHolder.
    */
-  public static void recipeAddition(Consumer<FinishedRecipe> originalConsumer) {
+  public static void recipeAddition(Consumer<FinishedRecipe> originalConsumer) {}
+
+  public static void toolmakerRecipeAddition(Consumer<FinishedRecipe> originalConsumer) {
     ToolHeadRecipeHandler.init(originalConsumer);
   }
 }

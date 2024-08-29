@@ -45,6 +45,7 @@ public class GregColoniesModResources {
       // Register recipes & unification data again
       long startTime = System.currentTimeMillis();
       GregColoniesRecipes.recipeAddition(GregColoniesDynamicDataPack::addRecipe);
+      GregColoniesRecipes.toolmakerRecipeAddition(GregColoniesDynamicDataPack::addCustomRecipe);
       LOGGER.info("GregColonies Data loading took {}ms", System.currentTimeMillis() - startTime);
 
       event.addRepositorySource(

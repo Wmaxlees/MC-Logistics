@@ -1,6 +1,7 @@
 package com.wmaxlees.gregcolonies;
 
 import com.mojang.logging.LogUtils;
+import com.wmaxlees.gregcolonies.api.creativetab.ModCreativeTabs;
 import com.wmaxlees.gregcolonies.api.util.constant.Constants;
 import com.wmaxlees.gregcolonies.apiimp.initializer.*;
 import com.wmaxlees.gregcolonies.core.event.EventHandler;
@@ -28,6 +29,8 @@ public class GregColonies {
     GregColoniesModBuildingsInitializer buildingsInitializer =
         new GregColoniesModBuildingsInitializer();
     buildingsInitializer.RegisterBuildings();
+
+    ModCreativeTabs.TAB_REG.register(FMLJavaModLoadingContext.get().getModEventBus());
 
     Mod.EventBusSubscriber.Bus.FORGE.bus().get().register(EventHandler.class);
 

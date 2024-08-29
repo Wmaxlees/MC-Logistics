@@ -9,6 +9,7 @@ import com.minecolonies.core.colony.buildings.views.EmptyView;
 import com.mojang.logging.LogUtils;
 import com.wmaxlees.gregcolonies.api.blocks.ModBlocks;
 import com.wmaxlees.gregcolonies.api.colony.buildings.ModBuildings;
+import com.wmaxlees.gregcolonies.core.colony.buildings.workerbuildings.BuildingToolPartSmith;
 import com.wmaxlees.gregcolonies.core.colony.buildings.workerbuildings.BuildingToolmaker;
 import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
@@ -34,6 +35,21 @@ public final class GregColoniesModBuildingsInitializer {
                     .addBuildingModuleProducer(TOOLMAKER_WORKORDERS)
                     .addBuildingModuleProducer(TOOLMAKER_TOOLS)
                     .addBuildingModuleProducer(TOOLMAKER_CRAFT)
+                    .addBuildingModuleProducer(MIN_STOCK)
+                    .createBuildingEntry());
+
+    ModBuildings.toolpartsmith =
+        ModBuildingsInitializer.DEFERRED_REGISTER.register(
+            ModBuildings.TOOL_PART_SMITH_ID,
+            () ->
+                new BuildingEntry.Builder()
+                    .setBuildingBlock(ModBlocks.blockHutToolPartSmith)
+                    .setBuildingProducer(BuildingToolPartSmith::new)
+                    .setBuildingViewProducer(() -> EmptyView::new)
+                    .setRegistryName(
+                        new ResourceLocation("minecolonies", ModBuildings.TOOL_PART_SMITH_ID))
+                    .addBuildingModuleProducer(TOOLPARTSMITH_WORK)
+                    .addBuildingModuleProducer(TOOLPARTSMITH_CRAFT)
                     .addBuildingModuleProducer(MIN_STOCK)
                     .createBuildingEntry());
   }

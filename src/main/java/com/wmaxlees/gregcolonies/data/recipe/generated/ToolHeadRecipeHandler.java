@@ -1,11 +1,11 @@
 package com.wmaxlees.gregcolonies.data.recipe.generated;
 
 import static com.gregtechceu.gtceu.api.data.chemical.material.info.MaterialFlags.*;
-import static com.minecolonies.api.util.constant.BuildingConstants.MODULE_CRAFTING;
+import static com.minecolonies.api.util.constant.BuildingConstants.MODULE_CUSTOM;
 
+import com.gregtechceu.gtceu.api.GTCEuAPI;
 import com.gregtechceu.gtceu.api.data.chemical.material.Material;
 import com.gregtechceu.gtceu.api.data.chemical.material.properties.PropertyKey;
-import com.gregtechceu.gtceu.api.data.chemical.material.properties.ToolProperty;
 import com.gregtechceu.gtceu.api.data.chemical.material.stack.UnificationEntry;
 import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
 import com.gregtechceu.gtceu.api.item.tool.GTToolType;
@@ -14,6 +14,7 @@ import com.minecolonies.core.generation.CustomRecipeProvider;
 import com.mojang.logging.LogUtils;
 import com.wmaxlees.gregcolonies.api.colony.jobs.ModJobs;
 import com.wmaxlees.gregcolonies.api.items.ModItems;
+import com.wmaxlees.gregcolonies.api.util.constant.ToolType;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -30,7 +31,13 @@ public class ToolHeadRecipeHandler {
   private static final Logger LOGGER = LogUtils.getLogger();
 
   public static void init(Consumer<FinishedRecipe> provider) {
-    TagPrefix.plate.executeHandler(provider, PropertyKey.TOOL, ToolHeadRecipeHandler::processTool);
+    for (Material mat : GTCEuAPI.materialManager.getRegisteredMaterials()) {
+      if (!mat.hasProperty(PropertyKey.TOOL)) {
+        continue;
+      }
+
+      processToolHead(provider, mat);
+    }
   }
 
   private static ItemStack getToolHead(GTToolType toolType, Material material) {
@@ -94,19 +101,16 @@ public class ToolHeadRecipeHandler {
     }
 
     CustomRecipeProvider.CustomRecipeBuilder.create(
-            ModJobs.TOOLMAKER_ID.getPath(),
-            MODULE_CRAFTING,
+            ModJobs.TOOL_PART_SMITH_ID.getPath(),
+            MODULE_CUSTOM,
             String.format("%s_%s_head", tool.name, material.getName()))
         .result(toolHeadStack)
         .inputs(inputItems.build().collect(Collectors.toList()))
+        .requiredTool(ToolType.HAMMER)
         .build(provider);
   }
 
-  private static void processTool(
-      TagPrefix prefix,
-      Material material,
-      ToolProperty property,
-      Consumer<FinishedRecipe> provider) {
+  private static void processToolHead(Consumer<FinishedRecipe> provider, Material material) {
     UnificationEntry plate = new UnificationEntry(TagPrefix.plate, material);
     UnificationEntry ingot =
         new UnificationEntry(

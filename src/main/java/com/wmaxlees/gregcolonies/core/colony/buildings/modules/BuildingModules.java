@@ -8,6 +8,7 @@ import com.minecolonies.core.colony.buildings.moduleviews.WorkerBuildingModuleVi
 import com.wmaxlees.gregcolonies.api.colony.jobs.ModJobs;
 import com.wmaxlees.gregcolonies.core.colony.buildings.moduleviews.ToolmakerToolsModuleView;
 import com.wmaxlees.gregcolonies.core.colony.buildings.moduleviews.ToolmakerWorkordersModuleView;
+import com.wmaxlees.gregcolonies.core.colony.buildings.workerbuildings.BuildingToolPartSmith;
 import com.wmaxlees.gregcolonies.core.colony.buildings.workerbuildings.BuildingToolmaker;
 
 public class BuildingModules {
@@ -47,4 +48,27 @@ public class BuildingModules {
       TOOLMAKER_TOOLS =
           new BuildingEntry.ModuleProducer<>(
               "toolmaker_tools", ToolmakerToolsModule::new, () -> ToolmakerToolsModuleView::new);
+
+  public static final BuildingEntry.ModuleProducer<
+          CraftingWorkerBuildingModule, WorkerBuildingModuleView>
+      TOOLPARTSMITH_WORK =
+          new BuildingEntry.ModuleProducer<>(
+              "toolpartsmith_work",
+              () ->
+                  new CraftingWorkerBuildingModule(
+                      ModJobs.toolpartsmith.get(),
+                      Skill.Strength,
+                      Skill.Focus,
+                      false,
+                      (b) -> 1,
+                      Skill.Strength,
+                      Skill.Focus),
+              () -> WorkerBuildingModuleView::new);
+  public static final BuildingEntry.ModuleProducer<
+          BuildingToolPartSmith.CraftingModule, CraftingModuleView>
+      TOOLPARTSMITH_CRAFT =
+          new BuildingEntry.ModuleProducer<>(
+              "toolpartsmith_craft",
+              () -> new BuildingToolPartSmith.CraftingModule(ModJobs.toolpartsmith.get()),
+              () -> CraftingModuleView::new);
 }

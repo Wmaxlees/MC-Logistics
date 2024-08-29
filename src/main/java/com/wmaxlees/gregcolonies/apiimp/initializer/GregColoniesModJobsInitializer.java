@@ -5,6 +5,7 @@ import com.minecolonies.apiimp.initializer.ModJobsInitializer;
 import com.minecolonies.core.colony.jobs.views.CrafterJobView;
 import com.wmaxlees.gregcolonies.api.colony.jobs.ModJobs;
 import com.wmaxlees.gregcolonies.api.util.constant.Constants;
+import com.wmaxlees.gregcolonies.core.colony.jobs.JobToolPartSmith;
 import com.wmaxlees.gregcolonies.core.colony.jobs.JobToolmaker;
 import java.util.function.Supplier;
 import net.minecraft.resources.ResourceLocation;
@@ -22,6 +23,17 @@ public final class GregColoniesModJobsInitializer {
                     .setJobProducer(JobToolmaker::new)
                     .setJobViewProducer(() -> CrafterJobView::new)
                     .setRegistryName(ModJobs.TOOLMAKER_ID)
+                    .createJobEntry());
+
+    ModJobs.toolpartsmith =
+        register(
+            ModJobsInitializer.DEFERRED_REGISTER,
+            ModJobs.TOOL_PART_SMITH_ID.getPath(),
+            () ->
+                new JobEntry.Builder()
+                    .setJobProducer(JobToolPartSmith::new)
+                    .setJobViewProducer(() -> CrafterJobView::new)
+                    .setRegistryName(ModJobs.TOOL_PART_SMITH_ID)
                     .createJobEntry());
   }
 
