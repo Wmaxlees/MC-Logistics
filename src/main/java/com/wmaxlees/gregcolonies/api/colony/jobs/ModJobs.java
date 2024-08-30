@@ -12,9 +12,12 @@ public final class ModJobs {
       new ResourceLocation(Constants.MINECOLONIES_MOD_ID, "toolpartsmith");
   public static final ResourceLocation TOOLMAKER_ID =
       new ResourceLocation(Constants.MINECOLONIES_MOD_ID, "toolmaker");
+  public static final ResourceLocation MACHINIST_ID =
+      new ResourceLocation(Constants.MINECOLONIES_MOD_ID, "machinist");
 
   public static RegistryObject<JobEntry> toolpartsmith;
   public static RegistryObject<JobEntry> toolmaker;
+  public static RegistryObject<JobEntry> machinist;
 
   private ModJobs() {
     throw new IllegalStateException("Tried to initialize: ModJobs but this is a Utility class.");

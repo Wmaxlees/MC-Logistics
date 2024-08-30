@@ -1,5 +1,7 @@
 package com.wmaxlees.gregcolonies.core.colony.buildings.workerbuildings;
 
+import static com.minecolonies.api.util.constant.ToolLevelConstants.TOOL_LEVEL_WOOD_OR_GOLD;
+
 import com.minecolonies.api.colony.IColony;
 import com.minecolonies.api.colony.jobs.registry.JobEntry;
 import com.minecolonies.api.colony.requestsystem.token.IToken;
@@ -10,8 +12,6 @@ import com.wmaxlees.gregcolonies.api.util.constant.ToolType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Tuple;
 import org.jetbrains.annotations.NotNull;
-
-import static com.minecolonies.api.util.constant.ToolLevelConstants.TOOL_LEVEL_WOOD_OR_GOLD;
 
 public class BuildingToolmaker extends AbstractBuilding {
   private static final String TOOLMAKER = "toolmaker";
@@ -24,7 +24,11 @@ public class BuildingToolmaker extends AbstractBuilding {
    */
   public BuildingToolmaker(@NotNull final IColony c, final BlockPos l) {
     super(c, l);
-    keepX.put(itemStack -> ItemStackUtils.hasToolLevel(itemStack, ToolType.FILE, TOOL_LEVEL_WOOD_OR_GOLD, getMaxToolLevel()), new Tuple<>(1, true));
+    keepX.put(
+        itemStack ->
+            ItemStackUtils.hasToolLevel(
+                itemStack, ToolType.FILE, TOOL_LEVEL_WOOD_OR_GOLD, getMaxToolLevel()),
+        new Tuple<>(1, true));
   }
 
   @NotNull
