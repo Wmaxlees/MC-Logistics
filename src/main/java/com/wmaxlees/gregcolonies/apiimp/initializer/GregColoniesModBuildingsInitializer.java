@@ -21,8 +21,6 @@ public final class GregColoniesModBuildingsInitializer {
   private static final Logger LOGGER = LogUtils.getLogger();
 
   public void RegisterBuildings() {
-    LOGGER.info("Initializing GregColonies buildings.");
-
     ModBuildings.toolmaker =
         ModBuildingsInitializer.DEFERRED_REGISTER.register(
             ModBuildings.TOOLMAKER_ID,

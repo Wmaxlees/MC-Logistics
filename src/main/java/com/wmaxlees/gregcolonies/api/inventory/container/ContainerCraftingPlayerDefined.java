@@ -2,7 +2,6 @@ package com.wmaxlees.gregcolonies.api.inventory.container;
 
 import static com.minecolonies.api.util.constant.InventoryConstants.*;
 
-import com.minecolonies.api.util.constant.Constants;
 import com.mojang.logging.LogUtils;
 import com.wmaxlees.gregcolonies.api.inventory.ModContainers;
 import com.wmaxlees.gregcolonies.api.inventory.container.slots.FakeSlot;
@@ -14,7 +13,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.inventory.TransientCraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
@@ -60,8 +58,8 @@ public class ContainerCraftingPlayerDefined extends AbstractContainerMenu {
     this.pos = pos;
     this.moduleId = moduleId;
 
-    craftMatrix = new TransientCraftingContainer(this, CRAFT_SIZE, CRAFT_SIZE);
-    result = new TransientCraftingContainer(this, RESULT_SIZE, RESULT_SIZE);
+    craftMatrix = new FakeCraftingContainer(this, CRAFT_SIZE, CRAFT_SIZE);
+    result = new FakeCraftingContainer(this, RESULT_SIZE, RESULT_SIZE);
 
     this.addSlot(new FakeSlot(result, 0, X_CRAFT_RESULT, Y_CRAFT_RESULT));
 
@@ -130,7 +128,6 @@ public class ContainerCraftingPlayerDefined extends AbstractContainerMenu {
   }
 
   public void doAction(InventoryAction action, int slot, ItemStack slotItem) {
-    LOGGER.info("{}: doAction called.", Constants.MOD_ID);
     if (this.slots.size() <= slot) {
       return;
     }
@@ -147,7 +144,9 @@ public class ContainerCraftingPlayerDefined extends AbstractContainerMenu {
         }
         break;
       case ROLL_UP:
-        slotHandle.getItem().setCount(slotHandle.getItem().getCount() + 1);
+        ItemStack newStack = slotHandle.getItem().copy();
+        newStack.setCount(newStack.getCount() + 1);
+        slotHandle.set(newStack);
         break;
       case ROLL_DOWN:
         slotHandle.getItem().setCount(slotHandle.getItem().getCount() - 1);

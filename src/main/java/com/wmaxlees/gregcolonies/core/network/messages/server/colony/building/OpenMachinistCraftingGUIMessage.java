@@ -7,7 +7,6 @@ import com.minecolonies.core.colony.buildings.views.AbstractBuildingView;
 import com.minecolonies.core.network.messages.server.AbstractBuildingServerMessage;
 import com.mojang.logging.LogUtils;
 import com.wmaxlees.gregcolonies.api.inventory.container.ContainerCraftingPlayerDefined;
-import com.wmaxlees.gregcolonies.api.util.constant.Constants;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -59,17 +58,12 @@ public class OpenMachinistCraftingGUIMessage extends AbstractBuildingServerMessa
       final boolean isLogicalServer,
       final IColony colony,
       final IBuilding building) {
-    LOGGER.info("{}: Loading MachinistCraftingGUI.", Constants.MOD_ID);
-
     final ServerPlayer player = ctxIn.getSender();
     if (player == null) {
       return;
     }
 
     if (building.getModule(id) instanceof AbstractCraftingBuildingModule module) {
-      LOGGER.info(
-          "{}: OpenMachinistCraftingGUIMessage was called and is calling OpenScreen.",
-          Constants.MOD_ID);
       net.minecraftforge.network.NetworkHooks.openScreen(
           player,
           new MenuProvider() {

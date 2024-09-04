@@ -10,6 +10,7 @@ import com.minecolonies.api.util.ItemStackUtils;
 import com.minecolonies.core.Network;
 import com.minecolonies.core.colony.buildings.views.AbstractBuildingView;
 import com.minecolonies.core.network.messages.server.colony.building.worker.AddRemoveRecipeMessage;
+import com.mojang.logging.LogUtils;
 import com.wmaxlees.gregcolonies.api.inventory.container.ContainerCraftingPlayerDefined;
 import com.wmaxlees.gregcolonies.api.inventory.container.slots.FakeSlot;
 import com.wmaxlees.gregcolonies.api.util.constant.Constants;
@@ -30,10 +31,14 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
 
 /** AbstractCrafting gui. */
 public class WindowPlayerDefinedCrafting
     extends AbstractContainerScreen<ContainerCraftingPlayerDefined> {
+  // Directly reference a slf4j logger
+  private static final Logger LOGGER = LogUtils.getLogger();
+
   private static final ResourceLocation CRAFTING_TABLE_GUI_TEXTURES3X3 =
       new ResourceLocation(Constants.MINECOLONIES_MOD_ID, "textures/gui/crafting3x3.png");
 
@@ -187,5 +192,22 @@ public class WindowPlayerDefinedCrafting
     }
 
     super.slotClicked(slot, slotIdx, mouseButton, clickType);
+  }
+
+  @Override
+  public boolean mouseScrolled(double x, double y, double delta) {
+    if (delta != 0) {
+      if (getSlotUnderMouse() instanceof FakeSlot fakeSlot) {
+        InventoryActionMessage p;
+        if (delta > 0) {
+          p = new InventoryActionMessage(InventoryAction.ROLL_UP, fakeSlot.getSlotIndex() + 1);
+        } else {
+          p = new InventoryActionMessage(InventoryAction.ROLL_DOWN, fakeSlot.getSlotIndex() + 1);
+        }
+        com.wmaxlees.gregcolonies.core.Network.getNetwork().sendToServer(p);
+        return false;
+      }
+    }
+    return super.mouseScrolled(x, y, delta);
   }
 }

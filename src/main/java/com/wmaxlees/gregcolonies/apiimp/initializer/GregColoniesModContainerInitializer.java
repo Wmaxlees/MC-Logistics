@@ -24,8 +24,6 @@ public class GregColoniesModContainerInitializer {
       DeferredRegister.create(ForgeRegistries.MENU_TYPES, Constants.MOD_ID);
 
   static {
-    LOGGER.info("{}: Registering Containers", Constants.MOD_ID);
-
     ModContainers.craftingPlayerDefined =
         CONTAINERS.register(
             "crafting_player_defined",

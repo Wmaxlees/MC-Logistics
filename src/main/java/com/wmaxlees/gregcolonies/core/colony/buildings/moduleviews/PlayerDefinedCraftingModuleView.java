@@ -21,7 +21,6 @@ public class PlayerDefinedCraftingModuleView extends CraftingModuleView {
 
   @Override
   public void openCraftingGUI() {
-    LOGGER.info("{}: Calling openCraftingGUI", Constants.MOD_ID);
     final BlockPos pos = buildingView.getPosition();
     Minecraft.getInstance()
         .player
@@ -35,7 +34,6 @@ public class PlayerDefinedCraftingModuleView extends CraftingModuleView {
   @Override
   @OnlyIn(Dist.CLIENT)
   public BOWindow getWindow() {
-    LOGGER.info("{}: Calling getWindow", Constants.MOD_ID);
     return new WindowListRecipes(
         buildingView,
         Constants.MINECOLONIES_MOD_ID + ":gui/layouthuts/layoutlistrecipes.xml",

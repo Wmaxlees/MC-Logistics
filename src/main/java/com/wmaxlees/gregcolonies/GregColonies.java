@@ -6,7 +6,6 @@ import com.wmaxlees.gregcolonies.api.util.constant.Constants;
 import com.wmaxlees.gregcolonies.apiimp.initializer.*;
 import com.wmaxlees.gregcolonies.core.Network;
 import com.wmaxlees.gregcolonies.core.event.EventHandler;
-import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -50,25 +49,16 @@ public class GregColonies {
 
   // You can use SubscribeEvent and let the Event Bus discover methods to call
   @SubscribeEvent
-  public void onServerStarting(ServerStartingEvent event) {
-    // Do something when the server starts
-    LOGGER.info("HELLO from server starting");
-  }
+  public void onServerStarting(ServerStartingEvent event) {}
 
   @SubscribeEvent
-  public static void registerNewRegistries(final NewRegistryEvent event) {
-    LOGGER.info("Registering!!");
-  }
+  public static void registerNewRegistries(final NewRegistryEvent event) {}
 
   // You can use EventBusSubscriber to automatically register all static methods
   // in the class annotated with @SubscribeEvent
   @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
   public static class ClientModEvents {
     @SubscribeEvent
-    public static void onClientSetup(FMLClientSetupEvent event) {
-      // Some client setup code
-      LOGGER.info("HELLO FROM CLIENT SETUP");
-      LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
-    }
+    public static void onClientSetup(FMLClientSetupEvent event) {}
   }
 }

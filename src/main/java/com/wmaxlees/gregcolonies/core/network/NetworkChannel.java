@@ -86,8 +86,7 @@ public class NetworkChannel {
 
     registerMessage(
         ++idx, OpenMachinistCraftingGUIMessage.class, OpenMachinistCraftingGUIMessage::new);
-    registerMessage(
-            ++idx, InventoryActionMessage.class, InventoryActionMessage::new);
+    registerMessage(++idx, InventoryActionMessage.class, InventoryActionMessage::new);
   }
 
   private void setupInternalMessages() {
