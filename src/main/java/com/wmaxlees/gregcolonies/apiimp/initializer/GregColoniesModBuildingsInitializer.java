@@ -68,6 +68,8 @@ public final class GregColoniesModBuildingsInitializer {
                     .setRegistryName(
                         new ResourceLocation(
                             Constants.MINECOLONIES_MOD_ID, ModBuildings.MACHINIST_ID))
+                    .addBuildingModuleProducer(MACHINIST_WORK)
+                    .addBuildingModuleProducer(MACHINIST_CRAFT)
                     .createBuildingEntry());
   }
 }

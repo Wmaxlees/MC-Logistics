@@ -70,4 +70,12 @@ public class BuildingMachinist extends AbstractBuilding {
   public void setOutputLocation(final BlockPos pos) {
     outputLocation = pos;
   }
+
+  public BlockPos getInputLocation() {
+    return inputLocation;
+  }
+
+  public BlockPos getOutputLocation() {
+    return outputLocation;
+  }
 }

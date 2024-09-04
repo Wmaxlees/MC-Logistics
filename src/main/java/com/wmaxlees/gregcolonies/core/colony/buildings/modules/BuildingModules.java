@@ -6,6 +6,7 @@ import com.minecolonies.core.colony.buildings.modules.CraftingWorkerBuildingModu
 import com.minecolonies.core.colony.buildings.moduleviews.CraftingModuleView;
 import com.minecolonies.core.colony.buildings.moduleviews.WorkerBuildingModuleView;
 import com.wmaxlees.gregcolonies.api.colony.jobs.ModJobs;
+import com.wmaxlees.gregcolonies.core.colony.buildings.moduleviews.PlayerDefinedCraftingModuleView;
 import com.wmaxlees.gregcolonies.core.colony.buildings.moduleviews.SearchableCraftingModuleView;
 import com.wmaxlees.gregcolonies.core.colony.buildings.moduleviews.ToolmakerToolsModuleView;
 import com.wmaxlees.gregcolonies.core.colony.buildings.moduleviews.ToolmakerWorkordersModuleView;
@@ -72,4 +73,27 @@ public class BuildingModules {
               "toolpartsmith_craft",
               () -> new BuildingToolPartSmith.CraftingModule(ModJobs.toolpartsmith.get()),
               () -> CraftingModuleView::new);
+
+  public static final BuildingEntry.ModuleProducer<
+          CraftingWorkerBuildingModule, WorkerBuildingModuleView>
+      MACHINIST_WORK =
+          new BuildingEntry.ModuleProducer<>(
+              "machinist_work",
+              () ->
+                  new CraftingWorkerBuildingModule(
+                      ModJobs.machinist.get(),
+                      Skill.Strength,
+                      Skill.Focus,
+                      false,
+                      (b) -> 1,
+                      Skill.Strength,
+                      Skill.Focus),
+              () -> WorkerBuildingModuleView::new);
+  public static final BuildingEntry.ModuleProducer<
+          PlayerDefinedCraftingModule, PlayerDefinedCraftingModuleView>
+      MACHINIST_CRAFT =
+          new BuildingEntry.ModuleProducer<>(
+              "machinist_craft",
+              () -> new PlayerDefinedCraftingModule(ModJobs.machinist.get()),
+              () -> PlayerDefinedCraftingModuleView::new);
 }
