@@ -6,6 +6,7 @@ import com.gregtechceu.gtceu.api.GTCEuAPI;
 import com.gregtechceu.gtceu.api.data.chemical.material.Material;
 import com.gregtechceu.gtceu.api.data.chemical.material.properties.PropertyKey;
 import com.gregtechceu.gtceu.api.item.tool.GTToolType;
+import com.wmaxlees.gregcolonies.core.items.ItemScepterMachinist;
 import com.wmaxlees.gregcolonies.core.items.ItemToolHead;
 import net.minecraft.world.item.Item;
 
@@ -17,6 +18,9 @@ public final class ModItems {
               .toList(),
           GTToolType.getTypes().values().stream().toList());
 
+  public static Item scepterMachinistInput;
+  public static Item scepterMachinistOutput;
+
   static {
     for (Material mat : GTCEuAPI.materialManager.getRegisteredMaterials()) {
       if (!mat.hasProperty(PropertyKey.TOOL)) {
@@ -27,6 +31,9 @@ public final class ModItems {
         TOOL_HEAD_ITEMS.put(mat, type, new ItemToolHead(type, mat, new Item.Properties()));
       }
     }
+
+    scepterMachinistInput = new ItemScepterMachinist.Input(new Item.Properties());
+    scepterMachinistOutput = new ItemScepterMachinist.Output(new Item.Properties());
   }
 
   private ModItems() {}

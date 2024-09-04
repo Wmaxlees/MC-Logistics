@@ -1,7 +1,9 @@
 package com.wmaxlees.gregcolonies.core.colony.buildings.workerbuildings;
 
 import com.minecolonies.api.colony.IColony;
+import com.minecolonies.api.colony.IColonyView;
 import com.minecolonies.core.colony.buildings.AbstractBuilding;
+import com.minecolonies.core.colony.buildings.views.AbstractBuildingView;
 import com.wmaxlees.gregcolonies.api.util.constant.NbtTagConstants;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -77,5 +79,36 @@ public class BuildingMachinist extends AbstractBuilding {
 
   public BlockPos getOutputLocation() {
     return outputLocation;
+  }
+
+  /** The client side representation of the building. */
+  public static class View extends AbstractBuildingView {
+    protected BlockPos inputLocation = BlockPos.ZERO;
+    protected BlockPos outputLocation = BlockPos.ZERO;
+
+    /**
+     * Instantiates the view of the building.
+     *
+     * @param c the colonyView.
+     * @param l the location of the block.
+     */
+    public View(final IColonyView c, final BlockPos l) {
+      super(c, l);
+    }
+
+    @Override
+    public void deserialize(@NotNull FriendlyByteBuf buf) {
+      super.deserialize(buf);
+      this.inputLocation = buf.readBlockPos();
+      this.outputLocation = buf.readBlockPos();
+    }
+
+    public BlockPos getInputLocation() {
+      return inputLocation;
+    }
+
+    public BlockPos getOutputLocation() {
+      return outputLocation;
+    }
   }
 }

@@ -51,6 +51,9 @@ public final class GregColoniesModItemsInitializer {
                       }
                     });
               });
+
+      registry.register("sceptermachinistinput", ModItems.scepterMachinistInput);
+      registry.register("sceptermachinistoutput", ModItems.scepterMachinistOutput);
     }
   }
 }

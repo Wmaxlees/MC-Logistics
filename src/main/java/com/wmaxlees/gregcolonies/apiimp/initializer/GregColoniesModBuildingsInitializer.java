@@ -62,12 +62,14 @@ public final class GregColoniesModBuildingsInitializer {
                 new BuildingEntry.Builder()
                     .setBuildingBlock(ModBlocks.blockHutMachinist)
                     .setBuildingProducer(BuildingMachinist::new)
-                    .setBuildingViewProducer(() -> EmptyView::new)
+                    .setBuildingViewProducer(() -> BuildingMachinist.View::new)
                     .setRegistryName(
                         new ResourceLocation(
                             Constants.MINECOLONIES_MOD_ID, ModBuildings.MACHINIST_ID))
                     .addBuildingModuleProducer(MACHINIST_WORK)
                     .addBuildingModuleProducer(MACHINIST_CRAFT)
+                    .addBuildingModuleProducer(MACHINIST_INPUT_TOOL)
+                    .addBuildingModuleProducer(MACHINIST_OUTPUT_TOOL)
                     .createBuildingEntry());
   }
 }
