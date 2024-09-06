@@ -124,7 +124,6 @@ public class WindowPlayerDefinedCrafting
     for (int i = 0; i < MAX_CRAFTING_GRID_SIZE; i++) {
       final ItemStack stack = menu.craftMatrix.getItem(i);
       final ItemStack copy = stack.copy();
-      ItemStackUtils.setSize(copy, 1);
 
       input.add(new ItemStorage(copy));
     }
