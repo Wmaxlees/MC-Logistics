@@ -59,8 +59,6 @@ public class WindowSearchableListRecipes extends AbstractModuleWindow {
   /** Life count. */
   private int lifeCount = 0;
 
-  private final TextField filterInput;
-
   private String filterText = "";
 
   private List<IRecipeStorage> displayedRecipes = new ArrayList<>();
@@ -81,7 +79,7 @@ public class WindowSearchableListRecipes extends AbstractModuleWindow {
     recipeList = findPaneOfTypeByID(RECIPE_LIST, ScrollingList.class);
     recipeStatus = findPaneOfTypeByID(RECIPE_STATUS, Text.class);
 
-    filterInput = findPaneOfTypeByID(FILTER, TextField.class);
+    TextField filterInput = findPaneOfTypeByID(FILTER, TextField.class);
     filterInput.setHandler(
         h -> {
           final String newFilter = h.getText();
