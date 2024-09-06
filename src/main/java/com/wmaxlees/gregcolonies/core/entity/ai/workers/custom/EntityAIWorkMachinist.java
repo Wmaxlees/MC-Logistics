@@ -109,7 +109,6 @@ public class EntityAIWorkMachinist
     }
 
     if (checkForItems(currentRecipeStorage) != CRAFT) {
-      LOGGER.info("{}: Don't have required items.", Constants.MOD_ID);
       return START_WORKING;
     }
 
@@ -120,12 +119,6 @@ public class EntityAIWorkMachinist
   }
 
   protected IAIState retrieveResults() {
-    LOGGER.info("{}: Trying to retrieve results.", Constants.MOD_ID);
-    LOGGER.info(
-        "{}: Need {} {}(s)",
-        Constants.MOD_ID,
-        currentRecipeStorage.getPrimaryOutput().getCount(),
-        currentRecipeStorage.getPrimaryOutput().getDisplayName().getString());
     if (!checkOutputOkay()) {
       return START_WORKING;
     }
@@ -276,8 +269,6 @@ public class EntityAIWorkMachinist
         checkTargetIsOkay(
             building.getInputLocation(), currentRecipeStorage.getCleanedInput().size(), true);
     if (inputState != StorageState.STORAGE_OKAY) {
-      LOGGER.info("{}: Input Storage not okay: {}", Constants.MOD_ID, inputState);
-      LOGGER.info("{}: Input Position: {}", Constants.MOD_ID, building.getInputLocation());
       worker
           .getCitizenData()
           .triggerInteraction(
@@ -292,8 +283,6 @@ public class EntityAIWorkMachinist
   private boolean checkOutputOkay() {
     StorageState outputState = checkTargetIsOkay(building.getOutputLocation(), 1, false);
     if (outputState != StorageState.STORAGE_OKAY) {
-      LOGGER.info("{}: Output Storage not okay: {}", Constants.MOD_ID, outputState);
-      LOGGER.info("{}: Output Position: {}", Constants.MOD_ID, building.getOutputLocation());
       worker
           .getCitizenData()
           .triggerInteraction(
