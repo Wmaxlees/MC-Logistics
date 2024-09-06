@@ -15,7 +15,6 @@ import com.minecolonies.api.util.ItemStackUtils;
 import com.minecolonies.core.colony.interactionhandling.StandardInteraction;
 import com.minecolonies.core.entity.ai.workers.crafting.AbstractEntityAICrafting;
 import com.mojang.logging.LogUtils;
-import com.wmaxlees.gregcolonies.api.util.constant.Constants;
 import com.wmaxlees.gregcolonies.core.colony.buildings.workerbuildings.BuildingMachinist;
 import com.wmaxlees.gregcolonies.core.colony.jobs.JobMachinist;
 import net.minecraft.core.BlockPos;

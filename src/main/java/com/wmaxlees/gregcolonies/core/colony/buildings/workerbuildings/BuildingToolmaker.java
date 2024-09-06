@@ -1,16 +1,11 @@
 package com.wmaxlees.gregcolonies.core.colony.buildings.workerbuildings;
 
-import static com.minecolonies.api.util.constant.ToolLevelConstants.TOOL_LEVEL_WOOD_OR_GOLD;
-
 import com.minecolonies.api.colony.IColony;
 import com.minecolonies.api.colony.jobs.registry.JobEntry;
 import com.minecolonies.api.colony.requestsystem.token.IToken;
-import com.minecolonies.api.util.ItemStackUtils;
 import com.minecolonies.core.colony.buildings.AbstractBuilding;
 import com.minecolonies.core.colony.buildings.modules.AbstractCraftingBuildingModule;
-import com.wmaxlees.gregcolonies.api.util.constant.ToolType;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.Tuple;
 import org.jetbrains.annotations.NotNull;
 
 public class BuildingToolmaker extends AbstractBuilding {

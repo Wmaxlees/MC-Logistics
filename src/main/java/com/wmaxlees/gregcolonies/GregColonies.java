@@ -1,5 +1,6 @@
 package com.wmaxlees.gregcolonies;
 
+import com.minecolonies.apiimp.initializer.ModBuildingsInitializer;
 import com.mojang.logging.LogUtils;
 import com.wmaxlees.gregcolonies.api.creativetab.ModCreativeTabs;
 import com.wmaxlees.gregcolonies.api.util.constant.Constants;
