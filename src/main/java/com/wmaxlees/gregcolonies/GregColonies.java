@@ -1,6 +1,5 @@
 package com.wmaxlees.gregcolonies;
 
-import com.minecolonies.apiimp.initializer.ModBuildingsInitializer;
 import com.mojang.logging.LogUtils;
 import com.wmaxlees.gregcolonies.api.creativetab.ModCreativeTabs;
 import com.wmaxlees.gregcolonies.api.util.constant.Constants;
@@ -27,13 +26,12 @@ public class GregColonies {
 
   public GregColonies() {
     TileEntityInitializer.BLOCK_ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
+    GregColoniesModBuildingsInitializer.DEFERRED_REGISTER.register(
+        FMLJavaModLoadingContext.get().getModEventBus());
+    GregColoniesModJobsInitializer.DEFERRED_REGISTER.register(
+        FMLJavaModLoadingContext.get().getModEventBus());
     GregColoniesModContainerInitializer.CONTAINERS.register(
         FMLJavaModLoadingContext.get().getModEventBus());
-    GregColoniesModJobsInitializer jobsInitializer = new GregColoniesModJobsInitializer();
-    jobsInitializer.RegisterJobs();
-    GregColoniesModBuildingsInitializer buildingsInitializer =
-        new GregColoniesModBuildingsInitializer();
-    buildingsInitializer.RegisterBuildings();
 
     ModCreativeTabs.TAB_REG.register(FMLJavaModLoadingContext.get().getModEventBus());
 

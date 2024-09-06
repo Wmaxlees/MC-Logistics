@@ -22,10 +22,9 @@ public final class GregColoniesModBuildingsInitializer {
 
   public static final DeferredRegister<BuildingEntry> DEFERRED_REGISTER =
       DeferredRegister.create(
-          new ResourceLocation(Constants.MINECOLONIES_MOD_ID, "buildings"),
-          Constants.MOD_ID);
+          new ResourceLocation(Constants.MINECOLONIES_MOD_ID, "buildings"), Constants.MOD_ID);
 
-  public void RegisterBuildings() {
+  static {
     ModBuildings.toolmaker =
         DEFERRED_REGISTER.register(
             ModBuildings.TOOLMAKER_ID,

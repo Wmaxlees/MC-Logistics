@@ -1,21 +1,28 @@
 package com.wmaxlees.gregcolonies.apiimp.initializer;
 
 import com.minecolonies.api.colony.jobs.registry.JobEntry;
-import com.minecolonies.apiimp.initializer.ModJobsInitializer;
 import com.minecolonies.core.colony.jobs.views.CrafterJobView;
+import com.mojang.logging.LogUtils;
 import com.wmaxlees.gregcolonies.api.colony.jobs.ModJobs;
 import com.wmaxlees.gregcolonies.api.util.constant.Constants;
 import com.wmaxlees.gregcolonies.core.colony.jobs.JobMachinist;
 import com.wmaxlees.gregcolonies.core.colony.jobs.JobToolPartSmith;
 import com.wmaxlees.gregcolonies.core.colony.jobs.JobToolmaker;
-import java.util.function.Supplier;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.registries.RegistryObject;
+import net.minecraftforge.registries.DeferredRegister;
+import org.slf4j.Logger;
 
 public final class GregColoniesModJobsInitializer {
-  public void RegisterJobs() {
+  // Directly reference a slf4j logger
+  private static final Logger LOGGER = LogUtils.getLogger();
+
+  public static final DeferredRegister<JobEntry> DEFERRED_REGISTER =
+      DeferredRegister.create(
+          new ResourceLocation(Constants.MINECOLONIES_MOD_ID, "jobs"), Constants.MOD_ID);
+
+  static {
     ModJobs.toolmaker =
-        register(
+        DEFERRED_REGISTER.register(
             ModJobs.TOOLMAKER_ID.getPath(),
             () ->
                 new JobEntry.Builder()
@@ -25,7 +32,7 @@ public final class GregColoniesModJobsInitializer {
                     .createJobEntry());
 
     ModJobs.toolpartsmith =
-        register(
+        DEFERRED_REGISTER.register(
             ModJobs.TOOL_PART_SMITH_ID.getPath(),
             () ->
                 new JobEntry.Builder()
@@ -35,7 +42,7 @@ public final class GregColoniesModJobsInitializer {
                     .createJobEntry());
 
     ModJobs.machinist =
-        register(
+        DEFERRED_REGISTER.register(
             ModJobs.MACHINIST_ID.getPath(),
             () ->
                 new JobEntry.Builder()
@@ -43,19 +50,11 @@ public final class GregColoniesModJobsInitializer {
                     .setJobViewProducer(() -> CrafterJobView::new)
                     .setRegistryName(ModJobs.MACHINIST_ID)
                     .createJobEntry());
-  }
 
-  /**
-   * Register a job at the deferred registry and store the job token in the job list.
-   *
-   * @param path the path.
-   * @param supplier the supplier of the entry.
-   * @return the registry object.
-   */
-  private static RegistryObject<JobEntry> register(
-      final String path, final Supplier<JobEntry> supplier) {
-    com.minecolonies.api.colony.jobs.ModJobs.jobs.add(
-        new ResourceLocation(Constants.MINECOLONIES_MOD_ID, path));
-    return ModJobsInitializer.DEFERRED_REGISTER.register(path, supplier);
+
+    // REMOVE THESE ONCE SOUNDS ARE NOT RELIANT ON THIS ARRAY
+    com.minecolonies.api.colony.jobs.ModJobs.jobs.add(ModJobs.MACHINIST_ID);
+    com.minecolonies.api.colony.jobs.ModJobs.jobs.add(ModJobs.TOOLMAKER_ID);
+    com.minecolonies.api.colony.jobs.ModJobs.jobs.add(ModJobs.TOOL_PART_SMITH_ID);
   }
 }
