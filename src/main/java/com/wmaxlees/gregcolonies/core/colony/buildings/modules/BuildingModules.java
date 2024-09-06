@@ -4,14 +4,12 @@ import com.minecolonies.api.colony.buildings.modules.IBuildingModule;
 import com.minecolonies.api.colony.buildings.registry.BuildingEntry;
 import com.minecolonies.api.entity.citizen.Skill;
 import com.minecolonies.core.colony.buildings.modules.CraftingWorkerBuildingModule;
-import com.minecolonies.core.colony.buildings.moduleviews.CraftingModuleView;
 import com.minecolonies.core.colony.buildings.moduleviews.ToolModuleView;
 import com.minecolonies.core.colony.buildings.moduleviews.WorkerBuildingModuleView;
 import com.wmaxlees.gregcolonies.api.colony.jobs.ModJobs;
 import com.wmaxlees.gregcolonies.api.items.ModItems;
 import com.wmaxlees.gregcolonies.core.colony.buildings.moduleviews.PlayerDefinedCraftingModuleView;
-import com.wmaxlees.gregcolonies.core.colony.buildings.moduleviews.ToolmakerToolsModuleView;
-import com.wmaxlees.gregcolonies.core.colony.buildings.moduleviews.ToolmakerWorkordersModuleView;
+import com.wmaxlees.gregcolonies.core.colony.buildings.moduleviews.SearchableCraftingModuleView;
 import com.wmaxlees.gregcolonies.core.colony.buildings.workerbuildings.BuildingToolPartSmith;
 import com.wmaxlees.gregcolonies.core.colony.buildings.workerbuildings.BuildingToolmaker;
 
@@ -35,23 +33,12 @@ public class BuildingModules {
               () -> WorkerBuildingModuleView::new);
 
   public static final BuildingEntry.ModuleProducer<
-          BuildingToolmaker.CraftingModule, CraftingModuleView>
+          BuildingToolmaker.CraftingModule, SearchableCraftingModuleView>
       TOOLMAKER_CRAFT =
           new BuildingEntry.ModuleProducer<>(
               "toolmaker_craft",
               () -> new BuildingToolmaker.CraftingModule(ModJobs.toolmaker.get()),
-              () -> CraftingModuleView::new);
-  public static final BuildingEntry.ModuleProducer<
-          ToolmakerWorkordersModule, ToolmakerWorkordersModuleView>
-      TOOLMAKER_WORKORDERS =
-          new BuildingEntry.ModuleProducer<>(
-              "toolmaker_workorders",
-              ToolmakerWorkordersModule::new,
-              () -> ToolmakerWorkordersModuleView::new);
-  public static final BuildingEntry.ModuleProducer<ToolmakerToolsModule, ToolmakerToolsModuleView>
-      TOOLMAKER_TOOLS =
-          new BuildingEntry.ModuleProducer<>(
-              "toolmaker_tools", ToolmakerToolsModule::new, () -> ToolmakerToolsModuleView::new);
+              () -> SearchableCraftingModuleView::new);
 
   public static final BuildingEntry.ModuleProducer<
           CraftingWorkerBuildingModule, WorkerBuildingModuleView>
@@ -69,12 +56,12 @@ public class BuildingModules {
                       Skill.Focus),
               () -> WorkerBuildingModuleView::new);
   public static final BuildingEntry.ModuleProducer<
-          BuildingToolPartSmith.CraftingModule, CraftingModuleView>
+          BuildingToolPartSmith.CraftingModule, SearchableCraftingModuleView>
       TOOLPARTSMITH_CRAFT =
           new BuildingEntry.ModuleProducer<>(
               "toolpartsmith_craft",
               () -> new BuildingToolPartSmith.CraftingModule(ModJobs.toolpartsmith.get()),
-              () -> CraftingModuleView::new);
+              () -> SearchableCraftingModuleView::new);
 
   public static final BuildingEntry.ModuleProducer<
           CraftingWorkerBuildingModule, WorkerBuildingModuleView>
