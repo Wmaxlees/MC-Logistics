@@ -24,11 +24,6 @@ public class BuildingToolmaker extends AbstractBuilding {
    */
   public BuildingToolmaker(@NotNull final IColony c, final BlockPos l) {
     super(c, l);
-    keepX.put(
-        itemStack ->
-            ItemStackUtils.hasToolLevel(
-                itemStack, ToolType.FILE, TOOL_LEVEL_WOOD_OR_GOLD, getMaxToolLevel()),
-        new Tuple<>(1, true));
   }
 
   @NotNull
