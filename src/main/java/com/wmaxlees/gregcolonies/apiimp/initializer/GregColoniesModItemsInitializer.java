@@ -20,8 +20,6 @@ public final class GregColoniesModItemsInitializer {
 
   @SubscribeEvent
   public static void registerColors(RegisterColorHandlersEvent.Item event) {
-    LOGGER.info("Registering GregColony colors");
-
     ModItems.TOOL_HEAD_ITEMS
         .rowMap()
         .forEach(
@@ -40,7 +38,6 @@ public final class GregColoniesModItemsInitializer {
   @SubscribeEvent
   public static void registerItems(RegisterEvent event) {
     if (event.getRegistryKey().equals(ForgeRegistries.Keys.ITEMS)) {
-      LOGGER.info("Registering GregColony items");
       IForgeRegistry<Item> registry = event.getForgeRegistry();
 
       ModItems.TOOL_HEAD_ITEMS
@@ -49,17 +46,14 @@ public final class GregColoniesModItemsInitializer {
               (material, row) -> {
                 row.forEach(
                     (toolType, item) -> {
-                      LOGGER.info(
-                          "Attempting to register item: "
-                              + material.getName()
-                              + " "
-                              + toolType.name);
-                      LOGGER.info("itemProvider: " + item);
                       if (item != null) {
                         registry.register(material.getName() + "_" + toolType.name + "_head", item);
                       }
                     });
               });
+
+      registry.register("sceptermachinistinput", ModItems.scepterMachinistInput);
+      registry.register("sceptermachinistoutput", ModItems.scepterMachinistOutput);
     }
   }
 }

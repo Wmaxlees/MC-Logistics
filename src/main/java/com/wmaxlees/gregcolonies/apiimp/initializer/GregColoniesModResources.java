@@ -21,9 +21,7 @@ public class GregColoniesModResources {
 
   @SubscribeEvent
   public static void registerPackFinders(AddPackFindersEvent event) {
-    LOGGER.info("Registering GregColonies pack finders.");
     if (event.getPackType() == PackType.CLIENT_RESOURCES) {
-      LOGGER.info("Client side GregColonies resources loading.");
       // Clear old data
       GregColoniesDynamicResourcePack.clearClient();
 

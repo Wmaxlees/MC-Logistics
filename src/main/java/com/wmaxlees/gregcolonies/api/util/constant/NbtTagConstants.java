@@ -11,4 +11,7 @@ public final class NbtTagConstants {
   public static final String TAG_WORK_ORDERS_LIST = "workorderslist";
   public static final String TAG_RESOURCE_NAMESPACE = "resourcenamespace";
   public static final String TAG_RESOURCE_PATH = "resourcepath";
+
+  public static final String TAG_MACHINIST_INPUT = "machinistinput";
+  public static final String TAG_MACHINIST_OUTPUT = "machinistoutput";
 }

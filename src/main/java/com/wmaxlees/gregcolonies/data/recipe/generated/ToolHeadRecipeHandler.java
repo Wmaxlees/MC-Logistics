@@ -6,8 +6,6 @@ import static com.minecolonies.api.util.constant.BuildingConstants.MODULE_CUSTOM
 import com.gregtechceu.gtceu.api.GTCEuAPI;
 import com.gregtechceu.gtceu.api.data.chemical.material.Material;
 import com.gregtechceu.gtceu.api.data.chemical.material.properties.PropertyKey;
-import com.gregtechceu.gtceu.api.data.chemical.material.stack.UnificationEntry;
-import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
 import com.gregtechceu.gtceu.api.item.tool.GTToolType;
 import com.minecolonies.api.crafting.ItemStorage;
 import com.minecolonies.core.generation.CustomRecipeProvider;

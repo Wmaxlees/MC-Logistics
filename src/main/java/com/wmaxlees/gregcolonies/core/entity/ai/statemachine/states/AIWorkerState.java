@@ -7,7 +7,15 @@ public enum AIWorkerState implements IAIState {
   ###TOOLMAKER###
    */
   /** this is the state when the crafter is creating a tool. */
-  CRAFT_TOOL(true);
+  CRAFT_TOOL(true),
+
+  /*
+  ###MACHINIST###
+   */
+  /** For inserting items */
+  INSERT_ITEMS(true),
+  /** For retrieving the results. */
+  RETRIEVE_RESULTS(true);
 
   /** Is it okay to eat. */
   private boolean isOkayToEat;
