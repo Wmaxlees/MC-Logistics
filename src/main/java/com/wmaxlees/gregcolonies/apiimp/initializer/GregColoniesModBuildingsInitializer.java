@@ -36,10 +36,7 @@ public final class GregColoniesModBuildingsInitializer {
                     .setRegistryName(
                         new ResourceLocation(Constants.MOD_ID, ModBuildings.TOOLMAKER_ID))
                     .addBuildingModuleProducer(TOOLMAKER_WORK)
-                    .addBuildingModuleProducer(TOOLMAKER_WORKORDERS)
-                    .addBuildingModuleProducer(TOOLMAKER_TOOLS)
                     .addBuildingModuleProducer(TOOLMAKER_CRAFT)
-                    .addBuildingModuleProducer(MIN_STOCK)
                     .createBuildingEntry());
 
     ModBuildings.toolpartsmith =
@@ -54,7 +51,6 @@ public final class GregColoniesModBuildingsInitializer {
                         new ResourceLocation(Constants.MOD_ID, ModBuildings.TOOL_PART_SMITH_ID))
                     .addBuildingModuleProducer(TOOLPARTSMITH_WORK)
                     .addBuildingModuleProducer(TOOLPARTSMITH_CRAFT)
-                    .addBuildingModuleProducer(MIN_STOCK)
                     .createBuildingEntry());
 
     ModBuildings.machinist =

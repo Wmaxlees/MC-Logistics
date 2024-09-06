@@ -2,8 +2,6 @@ package com.wmaxlees.gregcolonies.api.colony.jobs;
 
 import com.minecolonies.api.colony.jobs.registry.JobEntry;
 import com.wmaxlees.gregcolonies.api.util.constant.Constants;
-import java.util.ArrayList;
-import java.util.List;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.registries.RegistryObject;
 

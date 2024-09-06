@@ -27,59 +27,13 @@ public class EntityAIWorkToolPartSmith
    *
    * @param job a toolmaker job to use.
    */
-  @SuppressWarnings("unchecked")
   public EntityAIWorkToolPartSmith(@NotNull final JobToolPartSmith job) {
     super(job);
-    super.registerTargets(new AITarget<IAIState>(CRAFT_TOOL, this::craftTools, TICKS_SECOND));
     worker.setCanPickUpLoot(true);
   }
 
   @Override
   public Class<BuildingToolPartSmith> getExpectedBuildingClass() {
     return BuildingToolPartSmith.class;
-  }
-
-  @Override
-  protected IAIState decide() {
-    worker.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
-    if (walkToBuilding()) {
-      return START_WORKING;
-    }
-
-    final IAIState craftState = getNextCraftingState();
-    if (craftState != START_WORKING && !WorldUtil.isPastTime(world, 6000)) {
-      return craftState;
-    }
-
-    if (wantInventoryDumped()) {
-      // Wait to dump before continuing.
-      return getState();
-    }
-
-    // TODO(Wmaxlees): Implement this
-
-    return IDLE;
-  }
-
-  private ResourceLocation getNextCraftableTool() {
-    Set<ResourceLocation> workOrders =
-        building.getFirstModuleOccurance(ToolmakerWorkordersModule.class).getWorkorders();
-    Set<ResourceLocation> toolsToKeepStocked =
-        building.getFirstModuleOccurance(ToolmakerToolsModule.class).getToolsToKeepStocked();
-
-    // TODO(Wmaxlees): Implement this
-    for (Iterator<ResourceLocation> it = workOrders.iterator(); it.hasNext(); ) {
-      return it.next();
-    }
-
-    for (Iterator<ResourceLocation> it = toolsToKeepStocked.iterator(); it.hasNext(); ) {
-      return it.next();
-    }
-
-    return null;
-  }
-
-  private IAIState craftTools() {
-    return IDLE;
   }
 }

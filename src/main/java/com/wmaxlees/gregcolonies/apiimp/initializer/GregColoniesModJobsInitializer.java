@@ -51,7 +51,6 @@ public final class GregColoniesModJobsInitializer {
                     .setRegistryName(ModJobs.MACHINIST_ID)
                     .createJobEntry());
 
-
     // REMOVE THESE ONCE SOUNDS ARE NOT RELIANT ON THIS ARRAY
     com.minecolonies.api.colony.jobs.ModJobs.jobs.add(ModJobs.MACHINIST_ID);
     com.minecolonies.api.colony.jobs.ModJobs.jobs.add(ModJobs.TOOLMAKER_ID);
