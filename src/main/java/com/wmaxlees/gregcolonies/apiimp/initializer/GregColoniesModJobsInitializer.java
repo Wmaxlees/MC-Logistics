@@ -3,7 +3,6 @@ package com.wmaxlees.gregcolonies.apiimp.initializer;
 import com.minecolonies.api.colony.jobs.registry.JobEntry;
 import com.minecolonies.apiimp.initializer.ModJobsInitializer;
 import com.minecolonies.core.colony.jobs.views.CrafterJobView;
-import com.minecolonies.core.colony.jobs.views.DefaultJobView;
 import com.wmaxlees.gregcolonies.api.colony.jobs.ModJobs;
 import com.wmaxlees.gregcolonies.api.util.constant.Constants;
 import com.wmaxlees.gregcolonies.core.colony.jobs.JobMachinist;
@@ -41,7 +40,7 @@ public final class GregColoniesModJobsInitializer {
             () ->
                 new JobEntry.Builder()
                     .setJobProducer(JobMachinist::new)
-                    .setJobViewProducer(() -> DefaultJobView::new)
+                    .setJobViewProducer(() -> CrafterJobView::new)
                     .setRegistryName(ModJobs.MACHINIST_ID)
                     .createJobEntry());
   }
