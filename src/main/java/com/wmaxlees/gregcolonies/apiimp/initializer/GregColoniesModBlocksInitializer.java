@@ -2,6 +2,7 @@ package com.wmaxlees.gregcolonies.apiimp.initializer;
 
 import com.wmaxlees.gregcolonies.api.blocks.ModBlocks;
 import com.wmaxlees.gregcolonies.api.util.constant.Constants;
+import com.wmaxlees.gregcolonies.core.blocks.BlockGregColoniesTank;
 import com.wmaxlees.gregcolonies.core.blocks.huts.BlockHutMachinist;
 import com.wmaxlees.gregcolonies.core.blocks.huts.BlockHutToolPartSmith;
 import com.wmaxlees.gregcolonies.core.blocks.huts.BlockHutToolmaker;
@@ -36,6 +37,8 @@ public final class GregColoniesModBlocksInitializer {
     ModBlocks.blockHutToolPartSmith = new BlockHutToolPartSmith().registerBlock(registry);
     ModBlocks.blockHutToolmaker = new BlockHutToolmaker().registerBlock(registry);
     ModBlocks.blockHutMachinist = new BlockHutMachinist().registerBlock(registry);
+
+    ModBlocks.blockTank = new BlockGregColoniesTank().registerBlock(registry);
   }
 
   @SubscribeEvent
@@ -54,5 +57,7 @@ public final class GregColoniesModBlocksInitializer {
     ModBlocks.blockHutToolPartSmith.registerBlockItem(registry, new Item.Properties());
     ModBlocks.blockHutToolmaker.registerBlockItem(registry, new Item.Properties());
     ModBlocks.blockHutMachinist.registerBlockItem(registry, new Item.Properties());
+
+    ModBlocks.blockTank.registerBlockItem(registry, new Item.Properties());
   }
 }
