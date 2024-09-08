@@ -10,7 +10,6 @@ import com.wmaxlees.gregcolonies.core.tileentities.TileEntityTank;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -26,9 +25,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.fluids.FluidUtil;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
@@ -85,19 +81,9 @@ public class BlockGregColoniesTank extends AbstractBlockMinecolonies<BlockGregCo
     final BlockEntity tileEntity = worldIn.getBlockEntity(pos);
 
     if ((colony == null || colony.getPermissions().hasPermission(player, Action.ACCESS_HUTS))
-        && tileEntity instanceof TileEntityTank tank) {
+        && tileEntity instanceof TileEntityTank tileEntityTank) {
       if (!worldIn.isClientSide) {
-        NetworkHooks.openScreen(
-            (ServerPlayer) player, tank, buf -> buf.writeBlockPos(tank.getBlockPos()));
-      } else {
-        IFluidHandler handler =
-            FluidUtil.getFluidHandler(worldIn, pos, ray.getDirection()).resolve().get();
-        FluidUtil.interactWithFluidHandler(player, hand, handler);
-        LOGGER.info(
-            "{}: Currently contains {}mb of {}",
-            Constants.MOD_ID,
-            handler.getFluidInTank(0).getAmount(),
-            handler.getFluidInTank(0).getDisplayName().getString());
+        tileEntityTank.onPlayerUse(player, hand);
       }
 
       return InteractionResult.SUCCESS;
