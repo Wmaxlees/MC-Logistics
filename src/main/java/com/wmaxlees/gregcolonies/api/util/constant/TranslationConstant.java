@@ -14,4 +14,8 @@ public final class TranslationConstant {
   @NonNls
   public static final String MACHINIST_INPUT_TOO_SMALL =
       "com.wmaxlees.gregcolonies.gui.machinist.input_too_small";
+
+  @NonNls
+  public static final String FLUID_WAREHOUSE_MANAGER_NO_FLUIDS =
+      "com.wmaxlees.gregcolonies.gui.fluid_warehouse_manager.no_fluids";
 }

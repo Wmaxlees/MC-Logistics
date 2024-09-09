@@ -3,12 +3,8 @@ package com.wmaxlees.gregcolonies.core.colony.buildings.workerbuildings;
 import com.minecolonies.api.colony.IColony;
 import com.minecolonies.core.colony.buildings.AbstractBuilding;
 import com.wmaxlees.gregcolonies.api.items.ModItems;
-import com.wmaxlees.gregcolonies.core.blocks.BlockGregColoniesTank;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Tuple;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
 
 public class BuildingFluidWarehouse extends AbstractBuilding {
@@ -27,7 +23,8 @@ public class BuildingFluidWarehouse extends AbstractBuilding {
   public BuildingFluidWarehouse(final IColony c, final BlockPos l) {
     super(c, l);
 
-    keepX.put(stack -> stack.is(ModItems.courierTank), new Tuple<>(Integer.MAX_VALUE, true));
+    keepX.put(
+        stack -> stack.getItem() == ModItems.courierTank, new Tuple<>(Integer.MAX_VALUE, false));
   }
 
   @NotNull
@@ -39,21 +36,5 @@ public class BuildingFluidWarehouse extends AbstractBuilding {
   @Override
   public int getMaxBuildingLevel() {
     return MAX_LEVEL;
-  }
-
-  @Override
-  public void registerBlockPosition(
-      @NotNull final Block block, @NotNull final BlockPos pos, @NotNull final Level world) {
-    if (block instanceof BlockGregColoniesTank) {
-      final BlockEntity entity = world.getBlockEntity(pos);
-      //      if (entity instanceof TileEntityTank) {
-      //         ((TileEntityTank) entity).setInWarehouse(true);
-      //                while (((TileEntityRack) entity).getUpgradeSize()
-      //                    < getFirstModuleOccurance(WarehouseModule.class).getStorageUpgrade()) {
-      //                  ((TileEntityRack) entity).upgradeRackSize();
-      //                }
-      //      }
-    }
-    super.registerBlockPosition(block, pos, world);
   }
 }

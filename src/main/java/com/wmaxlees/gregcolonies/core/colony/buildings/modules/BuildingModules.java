@@ -6,7 +6,6 @@ import com.minecolonies.api.colony.buildings.modules.IBuildingModule;
 import com.minecolonies.api.colony.buildings.registry.BuildingEntry;
 import com.minecolonies.api.entity.citizen.Skill;
 import com.minecolonies.core.colony.buildings.modules.CraftingWorkerBuildingModule;
-import com.minecolonies.core.colony.buildings.modules.ItemListModule;
 import com.minecolonies.core.colony.buildings.moduleviews.ToolModuleView;
 import com.minecolonies.core.colony.buildings.moduleviews.WorkerBuildingModuleView;
 import com.wmaxlees.gregcolonies.api.colony.jobs.ModJobs;
@@ -127,7 +126,7 @@ public class BuildingModules {
       FLUID_LIST_COURIER_TANKS =
           new BuildingEntry.ModuleProducer<>(
               "itemlist_courier_tank",
-              () -> new ItemListModule(ITEM_LIST_COURIER_TANKS),
+              () -> new FluidListModule(ITEM_LIST_COURIER_TANKS),
               () ->
                   () ->
                       new FluidListModuleView(
