@@ -1,5 +1,7 @@
 package com.wmaxlees.gregcolonies.core.items.capabilities;
 
+import static com.wmaxlees.gregcolonies.api.util.constant.NbtTagConstants.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,8 +20,6 @@ import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
-
-import static com.wmaxlees.gregcolonies.api.util.constant.NbtTagConstants.*;
 
 public class CourierTankFluidHandler implements IFluidHandlerItem, ICapabilityProvider {
   private final LazyOptional<IFluidHandlerItem> holder = LazyOptional.of(() -> this);
@@ -184,7 +184,8 @@ public class CourierTankFluidHandler implements IFluidHandlerItem, ICapabilityPr
   private void updateNBT() {
     CompoundTag tag = new CompoundTag();
     tag.putInt(TAG_FLUID_AMOUNT, tankStacks.get(0).getAmount());
-    tag.putString(TAG_FLUID_TYPE, ForgeRegistries.FLUIDS.getKey(tankStacks.get(0).getFluid()).toString());
+    tag.putString(
+        TAG_FLUID_TYPE, ForgeRegistries.FLUIDS.getKey(tankStacks.get(0).getFluid()).toString());
     container.setTag(tag);
   }
 }

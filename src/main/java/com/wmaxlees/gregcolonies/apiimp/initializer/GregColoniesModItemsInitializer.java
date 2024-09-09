@@ -54,7 +54,7 @@ public final class GregColoniesModItemsInitializer {
 
       registry.register("sceptermachinistinput", ModItems.scepterMachinistInput);
       registry.register("sceptermachinistoutput", ModItems.scepterMachinistOutput);
-      registry.register("couriertank", ModItems.courierTank);
+      registry.register("courier_tank", ModItems.courierTank);
     }
   }
 }

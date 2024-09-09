@@ -1,5 +1,7 @@
 package com.wmaxlees.gregcolonies.core.items;
 
+import static com.wmaxlees.gregcolonies.api.util.constant.NbtTagConstants.*;
+
 import com.wmaxlees.gregcolonies.core.items.capabilities.CourierTankFluidHandler;
 import java.util.List;
 import javax.annotation.Nullable;
@@ -13,12 +15,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.fluids.FluidType;
-import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
-
-import static com.wmaxlees.gregcolonies.api.util.constant.NbtTagConstants.*;
 
 public class ItemCourierTank extends Item {
   public ItemCourierTank(Properties properties) {
@@ -45,10 +43,7 @@ public class ItemCourierTank extends Item {
 
     tooltip.add(
         Component.literal(
-            "Contains: "
-                + amount
-                + "mb "
-                + fluid.getFluidType().getDescription().getString()));
+            "Contains: " + amount + "mb " + fluid.getFluidType().getDescription().getString()));
   }
 
   private static Fluid getFluidType(ItemStack stack) {

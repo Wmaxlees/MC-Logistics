@@ -17,5 +17,6 @@ public final class NbtTagConstants {
 
   /** Courier Tank */
   public static final String TAG_FLUID_TYPE = "fluid_type";
+
   public static final String TAG_FLUID_AMOUNT = "fluid_amount";
 }

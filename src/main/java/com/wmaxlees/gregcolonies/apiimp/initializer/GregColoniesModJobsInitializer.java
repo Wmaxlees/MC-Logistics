@@ -2,9 +2,11 @@ package com.wmaxlees.gregcolonies.apiimp.initializer;
 
 import com.minecolonies.api.colony.jobs.registry.JobEntry;
 import com.minecolonies.core.colony.jobs.views.CrafterJobView;
+import com.minecolonies.core.colony.jobs.views.DefaultJobView;
 import com.mojang.logging.LogUtils;
 import com.wmaxlees.gregcolonies.api.colony.jobs.ModJobs;
 import com.wmaxlees.gregcolonies.api.util.constant.Constants;
+import com.wmaxlees.gregcolonies.core.colony.jobs.JobFluidWarehouseManager;
 import com.wmaxlees.gregcolonies.core.colony.jobs.JobMachinist;
 import com.wmaxlees.gregcolonies.core.colony.jobs.JobToolPartSmith;
 import com.wmaxlees.gregcolonies.core.colony.jobs.JobToolmaker;
@@ -51,9 +53,20 @@ public final class GregColoniesModJobsInitializer {
                     .setRegistryName(ModJobs.MACHINIST_ID)
                     .createJobEntry());
 
+    ModJobs.fluidwarehousemanager =
+        DEFERRED_REGISTER.register(
+            ModJobs.FLUID_WAREHOUSE_MANAGER_ID.getPath(),
+            () ->
+                new JobEntry.Builder()
+                    .setJobProducer(JobFluidWarehouseManager::new)
+                    .setJobViewProducer(() -> DefaultJobView::new)
+                    .setRegistryName(ModJobs.FLUID_WAREHOUSE_MANAGER_ID)
+                    .createJobEntry());
+
     // REMOVE THESE ONCE SOUNDS ARE NOT RELIANT ON THIS ARRAY
     com.minecolonies.api.colony.jobs.ModJobs.jobs.add(ModJobs.MACHINIST_ID);
     com.minecolonies.api.colony.jobs.ModJobs.jobs.add(ModJobs.TOOLMAKER_ID);
     com.minecolonies.api.colony.jobs.ModJobs.jobs.add(ModJobs.TOOL_PART_SMITH_ID);
+    com.minecolonies.api.colony.jobs.ModJobs.jobs.add(ModJobs.FLUID_WAREHOUSE_MANAGER_ID);
   }
 }

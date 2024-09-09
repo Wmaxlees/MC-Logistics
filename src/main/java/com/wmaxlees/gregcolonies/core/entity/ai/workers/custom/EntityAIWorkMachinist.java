@@ -284,12 +284,20 @@ public class EntityAIWorkMachinist
       stack = outputFluidHandler.drain(stack, IFluidHandler.FluidAction.EXECUTE);
 
       int remaining = stack.getAmount();
-      LOGGER.info("{}: Need to drain {}mb of {}", Constants.MOD_ID, remaining, stack.getDisplayName().getString());
+      LOGGER.info(
+          "{}: Need to drain {}mb of {}",
+          Constants.MOD_ID,
+          remaining,
+          stack.getDisplayName().getString());
       while (remaining > 0) {
         ItemStack container = new ItemStack(ModItems.courierTank);
         IFluidHandlerItem itemContainer = FluidUtil.getFluidHandler(container).resolve().get();
         int amount = itemContainer.fill(stack, IFluidHandler.FluidAction.EXECUTE);
-        LOGGER.info("{}: Creating new courier tank with {}mb of {}", Constants.MOD_ID, amount, stack.getDisplayName().getString());
+        LOGGER.info(
+            "{}: Creating new courier tank with {}mb of {}",
+            Constants.MOD_ID,
+            amount,
+            stack.getDisplayName().getString());
         remaining -= amount;
         result.add(container);
       }

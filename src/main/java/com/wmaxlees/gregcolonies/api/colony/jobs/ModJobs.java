@@ -12,13 +12,13 @@ public final class ModJobs {
       new ResourceLocation(Constants.MOD_ID, "toolmaker");
   public static final ResourceLocation MACHINIST_ID =
       new ResourceLocation(Constants.MOD_ID, "machinist");
-  public static final ResourceLocation FLUID_COURIER_ID =
-      new ResourceLocation(Constants.MOD_ID, "fluidcourier");
+  public static final ResourceLocation FLUID_WAREHOUSE_MANAGER_ID =
+      new ResourceLocation(Constants.MOD_ID, "fluidwarehousemanager");
 
   public static RegistryObject<JobEntry> toolpartsmith;
   public static RegistryObject<JobEntry> toolmaker;
   public static RegistryObject<JobEntry> machinist;
-  public static RegistryObject<JobEntry> fluidcourier;
+  public static RegistryObject<JobEntry> fluidwarehousemanager;
 
   private ModJobs() {
     throw new IllegalStateException("Tried to initialize: ModJobs but this is a Utility class.");
