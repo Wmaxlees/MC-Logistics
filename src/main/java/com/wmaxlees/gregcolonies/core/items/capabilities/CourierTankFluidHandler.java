@@ -10,6 +10,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
@@ -37,6 +38,8 @@ public class CourierTankFluidHandler implements IFluidHandlerItem, ICapabilityPr
 
   public CourierTankFluidHandler(ItemStack container) {
     this.container = container;
+
+    loadFromNBT();
   }
 
   @Override
@@ -187,5 +190,13 @@ public class CourierTankFluidHandler implements IFluidHandlerItem, ICapabilityPr
     tag.putString(
         TAG_FLUID_TYPE, ForgeRegistries.FLUIDS.getKey(tankStacks.get(0).getFluid()).toString());
     container.setTag(tag);
+  }
+
+  private void loadFromNBT() {
+    CompoundTag tag = container.getTag();
+    int fluidAmount = tag.getInt(TAG_FLUID_AMOUNT);
+    ResourceLocation fluidType = new ResourceLocation(tag.getString(TAG_FLUID_TYPE));
+
+    tankStacks.set(0, new FluidStack(ForgeRegistries.FLUIDS.getValue(fluidType), fluidAmount));
   }
 }

@@ -117,8 +117,7 @@ public class CourierTankRequestable implements IDeliverable {
 
     CourierTankRequestable requestable = new CourierTankRequestable(count, fluid, exactAmount);
     if (tag.contains(NBT_RESULT)) {
-      final ItemStack result = ItemStackUtils.deserializeFromNBT(tag.getCompound(NBT_RESULT));
-      requestable.result = result;
+      requestable.result = ItemStackUtils.deserializeFromNBT(tag.getCompound(NBT_RESULT));
     }
 
     return requestable;

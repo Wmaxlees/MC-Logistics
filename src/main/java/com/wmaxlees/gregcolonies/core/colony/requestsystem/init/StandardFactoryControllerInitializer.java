@@ -5,13 +5,10 @@ import com.wmaxlees.gregcolonies.core.colony.requestsystem.requests.CourierTankR
 
 public final class StandardFactoryControllerInitializer {
 
-    /**
-     * Private constructor to hide the implicit public one.
-     */
-    private StandardFactoryControllerInitializer() {
-    }
+  /** Private constructor to hide the implicit public one. */
+  private StandardFactoryControllerInitializer() {}
 
-    public static void onPreInit() {
-        StandardFactoryController.getInstance().registerNewFactory(new CourierTankRequestFactory());
-    }
+  public static void onPreInit() {
+    StandardFactoryController.getInstance().registerNewFactory(new CourierTankRequestFactory());
+  }
 }
