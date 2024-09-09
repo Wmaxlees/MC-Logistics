@@ -7,10 +7,12 @@ public class ModBuildings {
   public static final String TOOL_PART_SMITH_ID = "toolpartsmith";
   public static final String TOOLMAKER_ID = "toolmaker";
   public static final String MACHINIST_ID = "machinist";
+  public static final String FLUID_WAREHOUSE_ID = "fluidwarehouse";
 
   public static RegistryObject<BuildingEntry> toolpartsmith;
   public static RegistryObject<BuildingEntry> toolmaker;
   public static RegistryObject<BuildingEntry> machinist;
+  public static RegistryObject<BuildingEntry> fluidWarehouse;
 
   private ModBuildings() {
     throw new IllegalStateException(

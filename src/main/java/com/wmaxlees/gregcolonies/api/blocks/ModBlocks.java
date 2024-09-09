@@ -7,6 +7,7 @@ public final class ModBlocks {
   public static AbstractBlockHut<? extends AbstractBlockHut<?>> blockHutToolPartSmith;
   public static AbstractBlockHut<? extends AbstractBlockHut<?>> blockHutToolmaker;
   public static AbstractBlockHut<? extends AbstractBlockHut<?>> blockHutMachinist;
+  public static AbstractBlockHut<? extends AbstractBlockHut<?>> blockHutFluidWarehouse;
 
   public static BlockGregColoniesTank blockTank;
 }

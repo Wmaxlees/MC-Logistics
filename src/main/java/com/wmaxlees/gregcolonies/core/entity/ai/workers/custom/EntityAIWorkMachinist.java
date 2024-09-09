@@ -15,13 +15,21 @@ import com.minecolonies.api.util.ItemStackUtils;
 import com.minecolonies.core.colony.interactionhandling.StandardInteraction;
 import com.minecolonies.core.entity.ai.workers.crafting.AbstractEntityAICrafting;
 import com.mojang.logging.LogUtils;
+import com.wmaxlees.gregcolonies.api.items.ModItems;
+import com.wmaxlees.gregcolonies.api.util.constant.Constants;
 import com.wmaxlees.gregcolonies.core.colony.buildings.workerbuildings.BuildingMachinist;
 import com.wmaxlees.gregcolonies.core.colony.jobs.JobMachinist;
+import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidUtil;
+import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.items.IItemHandler;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
@@ -126,9 +134,16 @@ public class EntityAIWorkMachinist
       return RETRIEVE_RESULTS;
     }
 
-    removeResultFromOutput();
-    InventoryUtils.transferItemStackIntoNextBestSlotInItemHandler(
-        currentRecipeStorage.getPrimaryOutput(), worker.getInventoryCitizen());
+    List<ItemStack> removedItems = removeItemsFromOutput();
+    for (ItemStack removedItem : removedItems) {
+      InventoryUtils.transferItemStackIntoNextBestSlotInItemHandler(
+          removedItem, worker.getInventoryCitizen());
+    }
+    removedItems = removeFluidsFromOutput();
+    for (ItemStack removedItem : removedItems) {
+      InventoryUtils.transferItemStackIntoNextBestSlotInItemHandler(
+          removedItem, worker.getInventoryCitizen());
+    }
 
     currentRequest.addDelivery(currentRecipeStorage.getPrimaryOutput());
     job.setCraftCounter(job.getCraftCounter() + 1);
@@ -240,27 +255,47 @@ public class EntityAIWorkMachinist
     return false;
   }
 
-  private boolean removeResultFromOutput() {
+  private List<ItemStack> removeItemsFromOutput() {
+    List<ItemStack> result = new ArrayList<>();
+
     BlockEntity outputBlockEntity = worker.level().getBlockEntity(building.getOutputLocation());
     IItemHandler outputItemHandler =
         outputBlockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).resolve().get();
 
-    int remaining = currentRecipeStorage.getPrimaryOutput().getCount();
     for (int i = 0; i < outputItemHandler.getSlots(); ++i) {
-      if (outputItemHandler
-          .getStackInSlot(i)
-          .is(currentRecipeStorage.getPrimaryOutput().getItem())) {
-        ItemStack stack = outputItemHandler.getStackInSlot(i);
-        int amount = stack.getCount();
-        outputItemHandler.extractItem(i, remaining, false);
+      ItemStack stack = outputItemHandler.getStackInSlot(i);
+      result.add(outputItemHandler.extractItem(i, stack.getCount(), false));
+    }
+
+    return result;
+  }
+
+  private List<ItemStack> removeFluidsFromOutput() {
+    List<ItemStack> result = new ArrayList<>();
+
+    BlockEntity outputBlockEntity = worker.level().getBlockEntity(building.getOutputLocation());
+    if (outputBlockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER).resolve().isEmpty()) {
+      return result;
+    }
+    IFluidHandler outputFluidHandler =
+        outputBlockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER).resolve().get();
+    for (int i = 0; i < outputFluidHandler.getTanks(); ++i) {
+      FluidStack stack = outputFluidHandler.getFluidInTank(i);
+      stack = outputFluidHandler.drain(stack, IFluidHandler.FluidAction.EXECUTE);
+
+      int remaining = stack.getAmount();
+      LOGGER.info("{}: Need to drain {}mb of {}", Constants.MOD_ID, remaining, stack.getDisplayName().getString());
+      while (remaining > 0) {
+        ItemStack container = new ItemStack(ModItems.courierTank);
+        IFluidHandlerItem itemContainer = FluidUtil.getFluidHandler(container).resolve().get();
+        int amount = itemContainer.fill(stack, IFluidHandler.FluidAction.EXECUTE);
+        LOGGER.info("{}: Creating new courier tank with {}mb of {}", Constants.MOD_ID, amount, stack.getDisplayName().getString());
         remaining -= amount;
-        if (remaining <= 0) {
-          return true;
-        }
+        result.add(container);
       }
     }
 
-    return false;
+    return result;
   }
 
   private boolean checkInputOkay() {

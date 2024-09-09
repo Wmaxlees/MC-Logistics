@@ -14,4 +14,8 @@ public final class NbtTagConstants {
 
   public static final String TAG_MACHINIST_INPUT = "machinistinput";
   public static final String TAG_MACHINIST_OUTPUT = "machinistoutput";
+
+  /** Courier Tank */
+  public static final String TAG_FLUID_TYPE = "fluid_type";
+  public static final String TAG_FLUID_AMOUNT = "fluid_amount";
 }
