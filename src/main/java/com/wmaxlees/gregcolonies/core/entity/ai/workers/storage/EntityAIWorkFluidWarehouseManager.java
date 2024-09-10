@@ -27,7 +27,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.fluids.FluidActionResult;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
@@ -151,13 +153,13 @@ public class EntityAIWorkFluidWarehouseManager
     }
 
     BlockPos tankTarget = walkTo;
-    if (FluidUtil.getFluidHandler(worker.level(), tankTarget, null).resolve().isEmpty()) {
+    BlockEntity tank = worker.level().getBlockEntity(tankTarget);
+    if (tank.getCapability(ForgeCapabilities.FLUID_HANDLER).resolve().isEmpty()) {
       return START_WORKING;
     }
 
-    IFluidHandler tankHandler =
-        FluidUtil.getFluidHandler(worker.level(), tankTarget, null).resolve().get();
-    Fluid tankFluid = tankHandler.getFluidInTank(0).getFluid();
+    IFluidHandler tankHandler = tank.getCapability(ForgeCapabilities.FLUID_HANDLER).resolve().get();
+    FluidStack tankFluid = tankHandler.getFluidInTank(0);
 
     IFluidHandler heldHandler =
         FluidUtil.getFluidHandler(
@@ -165,7 +167,8 @@ public class EntityAIWorkFluidWarehouseManager
             .resolve()
             .get();
 
-    if (!tankFluid.isSame(heldHandler.getFluidInTank(0).getFluid())) {
+    if (!tankFluid.getFluid().isSame(heldHandler.getFluidInTank(0).getFluid())
+        && !tankFluid.isEmpty()) {
       return START_WORKING;
     }
 
@@ -176,6 +179,22 @@ public class EntityAIWorkFluidWarehouseManager
             Integer.MAX_VALUE,
             null,
             true);
+
+    if (result
+        .getResult()
+        .getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM)
+        .resolve()
+        .isEmpty()) {
+      InventoryUtils.removeStackFromItemHandler(
+          worker.getItemHandlerCitizen(),
+          worker.getInventoryCitizen().getHeldItem(InteractionHand.MAIN_HAND),
+          1);
+      return START_WORKING;
+    }
+
+    IFluidHandler resultHandler =
+        result.getResult().getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).resolve().get();
+    heldHandler.getFluidInTank(0).setAmount(resultHandler.getFluidInTank(0).getAmount());
 
     if (heldHandler.getFluidInTank(0).getAmount() > 0) {
       return MOVE_TO_TANK_TO_EMPTY;
@@ -230,18 +249,24 @@ public class EntityAIWorkFluidWarehouseManager
             .getFluid();
 
     for (BlockPos tankPos : tankUserModule.getRegisteredBlocks()) {
-      if (FluidUtil.getFluidHandler(worker.level(), tankPos, null).resolve().isEmpty()) {
+      BlockEntity tank = worker.level().getBlockEntity(tankPos);
+      if (tank == null) {
         continue;
       }
 
-      IFluidHandler handler =
-          FluidUtil.getFluidHandler(worker.level(), tankPos, null).resolve().get();
-      Fluid tankFluid = handler.getFluidInTank(0).getFluid();
-
-      if (tankFluid.isSame(heldFluid)) {
-        setWalkTo(tankPos);
-        return EMPTY_TANK;
+      if (tank.getCapability(ForgeCapabilities.FLUID_HANDLER).resolve().isEmpty()) {
+        continue;
       }
+
+      IFluidHandler handler = tank.getCapability(ForgeCapabilities.FLUID_HANDLER).resolve().get();
+      FluidStack tankFluid = handler.getFluidInTank(0);
+
+      if (!tankFluid.getFluid().isSame(heldFluid) && !tankFluid.isEmpty()) {
+        continue;
+      }
+
+      setWalkTo(tankPos);
+      return EMPTY_TANK;
     }
 
     worker
