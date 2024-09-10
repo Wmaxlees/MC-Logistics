@@ -19,7 +19,6 @@ import com.wmaxlees.gregcolonies.api.util.constant.translation.RequestSystemTran
 import com.wmaxlees.gregcolonies.core.colony.buildings.modules.FluidListModule;
 import com.wmaxlees.gregcolonies.core.colony.buildings.workerbuildings.BuildingFluidWarehouse;
 import com.wmaxlees.gregcolonies.core.colony.jobs.JobFluidWarehouseManager;
-import com.wmaxlees.gregcolonies.core.colony.requestable.CourierTankRequestable;
 import com.wmaxlees.gregcolonies.core.colony.requestable.CourierTanksRequestable;
 import java.util.List;
 import net.minecraft.network.chat.Component;
