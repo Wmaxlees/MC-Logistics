@@ -15,7 +15,13 @@ public enum AIWorkerState implements IAIState {
   /** For inserting items */
   INSERT_ITEMS(true),
   /** For retrieving the results. */
-  RETRIEVE_RESULTS(true);
+  RETRIEVE_RESULTS(true),
+
+  /*
+  ###FLUID WAREHOUSE MANAGER
+   */
+  MOVE_TO_TANK_TO_EMPTY(true),
+  EMPTY_TANK(true);
 
   /** Is it okay to eat. */
   private boolean isOkayToEat;

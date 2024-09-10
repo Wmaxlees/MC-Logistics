@@ -3,6 +3,7 @@ package com.wmaxlees.gregcolonies.core.colony.buildings.modules;
 import static com.wmaxlees.gregcolonies.api.util.constant.ItemListConstants.*;
 
 import com.minecolonies.api.colony.buildings.modules.IBuildingModule;
+import com.minecolonies.api.colony.buildings.modules.IBuildingModuleView;
 import com.minecolonies.api.colony.buildings.registry.BuildingEntry;
 import com.minecolonies.api.entity.citizen.Skill;
 import com.minecolonies.core.colony.buildings.modules.CraftingWorkerBuildingModule;
@@ -22,6 +23,10 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class BuildingModules {
+
+  /** Global */
+  public static final BuildingEntry.ModuleProducer<TankUserModule, IBuildingModuleView> TANK =
+      new BuildingEntry.ModuleProducer<>("tank", TankUserModule::new, null);
 
   /** Craftmanship */
   public static final BuildingEntry.ModuleProducer<

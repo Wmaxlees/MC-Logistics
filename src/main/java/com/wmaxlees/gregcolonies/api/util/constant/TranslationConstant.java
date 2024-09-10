@@ -18,4 +18,8 @@ public final class TranslationConstant {
   @NonNls
   public static final String FLUID_WAREHOUSE_MANAGER_NO_FLUIDS =
       "com.wmaxlees.gregcolonies.gui.fluid_warehouse_manager.no_fluids";
+
+  @NonNls
+  public static final String FLUID_WAREHOUSE_MANAGER_NO_AVAILABLE_TANKS =
+      "com.wmaxlees.gregcolonies.gui.fluid_warehouse_manager.no_available_tanks";
 }
