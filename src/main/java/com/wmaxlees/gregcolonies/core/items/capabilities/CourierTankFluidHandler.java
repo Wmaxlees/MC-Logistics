@@ -12,6 +12,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
@@ -194,9 +196,22 @@ public class CourierTankFluidHandler implements IFluidHandlerItem, ICapabilityPr
 
   private void loadFromNBT() {
     CompoundTag tag = container.getTag();
-    int fluidAmount = tag.getInt(TAG_FLUID_AMOUNT);
-    ResourceLocation fluidType = new ResourceLocation(tag.getString(TAG_FLUID_TYPE));
 
-    tankStacks.set(0, new FluidStack(ForgeRegistries.FLUIDS.getValue(fluidType), fluidAmount));
+    if (tag == null) {
+      return;
+    }
+
+    int fluidAmount = 0;
+    if (tag.contains(TAG_FLUID_AMOUNT)) {
+      fluidAmount = tag.getInt(TAG_FLUID_AMOUNT);
+    }
+
+    Fluid fluid = Fluids.EMPTY;
+    if (tag.contains(TAG_FLUID_TYPE)) {
+      ResourceLocation fluidType = new ResourceLocation(tag.getString(TAG_FLUID_TYPE));
+      fluid = ForgeRegistries.FLUIDS.getValue(fluidType);
+    }
+
+    tankStacks.set(0, new FluidStack(fluid, fluidAmount));
   }
 }

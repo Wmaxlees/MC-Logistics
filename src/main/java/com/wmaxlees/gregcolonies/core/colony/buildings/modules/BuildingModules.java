@@ -125,13 +125,13 @@ public class BuildingModules {
   public static final BuildingEntry.ModuleProducer<FluidListModule, FluidListModuleView>
       FLUID_LIST_COURIER_TANKS =
           new BuildingEntry.ModuleProducer<>(
-              "itemlist_courier_tank",
+              "fluidlist_courier_tank",
               () -> new FluidListModule(ITEM_LIST_COURIER_TANKS),
               () ->
                   () ->
                       new FluidListModuleView(
                           ITEM_LIST_COURIER_TANKS,
-                          RequestSystemTranslatableConstants.REQUEST_TYPE_COURIER_TANK,
+                          RequestSystemTranslatableConstants.REQUEST_TYPE_COURIER_TANKS,
                           true,
                           (buildingView) ->
                               new HashSet<>(

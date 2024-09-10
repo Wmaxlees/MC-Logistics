@@ -20,13 +20,11 @@ import com.wmaxlees.gregcolonies.core.colony.buildings.modules.FluidListModule;
 import com.wmaxlees.gregcolonies.core.colony.buildings.workerbuildings.BuildingFluidWarehouse;
 import com.wmaxlees.gregcolonies.core.colony.jobs.JobFluidWarehouseManager;
 import com.wmaxlees.gregcolonies.core.colony.requestable.CourierTankRequestable;
+import com.wmaxlees.gregcolonies.core.colony.requestable.CourierTanksRequestable;
 import java.util.List;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
@@ -81,7 +79,7 @@ public class EntityAIWorkFluidWarehouseManager
 
   public void requestFluids() {
     if (!building.hasWorkerOpenRequestsOfType(
-            worker.getCitizenData().getId(), TypeToken.of(CourierTankRequestable.class))
+            worker.getCitizenData().getId(), TypeToken.of(CourierTanksRequestable.class))
         && !building.hasWorkerOpenRequestsFiltered(
             worker.getCitizenData().getId(),
             req ->
@@ -89,35 +87,18 @@ public class EntityAIWorkFluidWarehouseManager
                     .getSiblings()
                     .contains(
                         Component.translatable(
-                            RequestSystemTranslatableConstants.REQUEST_TYPE_COURIER_TANK)))) {
+                            RequestSystemTranslatableConstants.REQUEST_TYPE_COURIER_TANKS)))) {
       final List<FluidStorage> allowedFluids =
           building
               .getModuleMatching(
                   FluidListModule.class, m -> m.getId().equals(ITEM_LIST_COURIER_TANKS))
               .getList();
 
-      final List<ItemStack> requests =
+      final List<Fluid> requests =
           ForgeRegistries.FLUIDS.getValues().stream()
               .filter(
                   fluid ->
                       !allowedFluids.contains(new FluidStorage(new FluidStack(fluid, 1000), 1000)))
-              .map(
-                  fluid -> {
-                    ItemStack stack = new ItemStack(ModItems.courierTank);
-                    if (stack
-                        .getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM)
-                        .resolve()
-                        .isPresent()) {
-                      return stack;
-                    }
-
-                    IFluidHandler handler =
-                        stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).resolve().get();
-
-                    handler.fill(new FluidStack(fluid, 1000), IFluidHandler.FluidAction.EXECUTE);
-
-                    return stack;
-                  })
               .toList();
 
       if (requests.isEmpty()) {
@@ -132,7 +113,7 @@ public class EntityAIWorkFluidWarehouseManager
       } else {
         worker
             .getCitizenData()
-            .createRequestAsync(new CourierTankRequestable(Integer.MAX_VALUE, Fluids.WATER, false));
+            .createRequestAsync(new CourierTanksRequestable(Integer.MAX_VALUE, requests, false));
       }
     }
   }
