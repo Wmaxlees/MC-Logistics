@@ -2,7 +2,6 @@ package com.wmaxlees.gregcolonies.api.inventory.container;
 
 import static com.minecolonies.api.util.constant.InventoryConstants.*;
 
-import com.mojang.logging.LogUtils;
 import com.wmaxlees.gregcolonies.api.inventory.ModContainers;
 import com.wmaxlees.gregcolonies.api.inventory.container.slots.FakeSlot;
 import com.wmaxlees.gregcolonies.core.network.messages.inventory.InventoryAction;
@@ -15,11 +14,8 @@ import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
 
 public class ContainerCraftingPlayerDefined extends AbstractContainerMenu {
-  // Directly reference a slf4j logger
-  private static final Logger LOGGER = LogUtils.getLogger();
 
   private static final int CRAFT_SIZE = 3;
   private static final int RESULT_SIZE = 1;

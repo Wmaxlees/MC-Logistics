@@ -1,6 +1,6 @@
 package com.wmaxlees.gregcolonies.core.mixins;
 
-import com.mojang.logging.LogUtils;
+import com.wmaxlees.gregcolonies.api.util.constant.Logger;
 import com.wmaxlees.gregcolonies.client.renderer.item.ToolHeadItemRenderer;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
@@ -9,7 +9,6 @@ import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraftforge.fml.ModLoader;
-import org.slf4j.Logger;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -17,9 +16,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value = ModelManager.class)
 public abstract class ModelManagerMixin {
-  // Directly reference a slf4j logger
-  private static final Logger LOGGER = LogUtils.getLogger();
-
   @Inject(method = "reload", at = @At(value = "HEAD"))
   private void gregcolonies$loadDynamicModels(
       PreparableReloadListener.PreparationBarrier preparationBarrier,
@@ -33,6 +29,6 @@ public abstract class ModelManagerMixin {
 
     long startTime = System.currentTimeMillis();
     ToolHeadItemRenderer.reinitModels();
-    LOGGER.info("GregColonies Model loading took {}ms", System.currentTimeMillis() - startTime);
+    Logger.InfoLog("GregColonies Model loading took {}ms", System.currentTimeMillis() - startTime);
   }
 }

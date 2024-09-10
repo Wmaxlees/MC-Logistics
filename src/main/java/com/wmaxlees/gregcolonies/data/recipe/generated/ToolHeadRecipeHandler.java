@@ -9,7 +9,6 @@ import com.gregtechceu.gtceu.api.data.chemical.material.properties.PropertyKey;
 import com.gregtechceu.gtceu.api.item.tool.GTToolType;
 import com.minecolonies.api.crafting.ItemStorage;
 import com.minecolonies.core.generation.CustomRecipeProvider;
-import com.mojang.logging.LogUtils;
 import com.wmaxlees.gregcolonies.api.colony.jobs.ModJobs;
 import com.wmaxlees.gregcolonies.api.items.ModItems;
 import com.wmaxlees.gregcolonies.api.util.constant.ToolType;
@@ -22,12 +21,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
 
 public class ToolHeadRecipeHandler {
-  // Directly reference a slf4j logger
-  private static final Logger LOGGER = LogUtils.getLogger();
-
   public static void init(Consumer<FinishedRecipe> provider) {
     for (Material mat : GTCEuAPI.materialManager.getRegisteredMaterials()) {
       if (!mat.hasProperty(PropertyKey.TOOL)) {

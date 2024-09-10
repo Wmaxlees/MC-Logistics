@@ -5,7 +5,6 @@ import static com.wmaxlees.gregcolonies.core.colony.buildings.modules.BuildingMo
 
 import com.minecolonies.api.colony.buildings.registry.BuildingEntry;
 import com.minecolonies.core.colony.buildings.views.EmptyView;
-import com.mojang.logging.LogUtils;
 import com.wmaxlees.gregcolonies.api.blocks.ModBlocks;
 import com.wmaxlees.gregcolonies.api.colony.buildings.ModBuildings;
 import com.wmaxlees.gregcolonies.api.util.constant.Constants;
@@ -15,12 +14,8 @@ import com.wmaxlees.gregcolonies.core.colony.buildings.workerbuildings.BuildingT
 import com.wmaxlees.gregcolonies.core.colony.buildings.workerbuildings.BuildingToolmaker;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.registries.DeferredRegister;
-import org.slf4j.Logger;
 
 public final class GregColoniesModBuildingsInitializer {
-  // Directly reference a slf4j logger
-  private static final Logger LOGGER = LogUtils.getLogger();
-
   public static final DeferredRegister<BuildingEntry> DEFERRED_REGISTER =
       DeferredRegister.create(
           new ResourceLocation(Constants.MINECOLONIES_MOD_ID, "buildings"), Constants.MOD_ID);

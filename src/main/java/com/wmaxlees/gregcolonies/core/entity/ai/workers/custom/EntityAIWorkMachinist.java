@@ -14,9 +14,7 @@ import com.minecolonies.api.util.InventoryUtils;
 import com.minecolonies.api.util.ItemStackUtils;
 import com.minecolonies.core.colony.interactionhandling.StandardInteraction;
 import com.minecolonies.core.entity.ai.workers.crafting.AbstractEntityAICrafting;
-import com.mojang.logging.LogUtils;
 import com.wmaxlees.gregcolonies.api.items.ModItems;
-import com.wmaxlees.gregcolonies.api.util.constant.Constants;
 import com.wmaxlees.gregcolonies.core.colony.buildings.workerbuildings.BuildingMachinist;
 import com.wmaxlees.gregcolonies.core.colony.jobs.JobMachinist;
 import java.util.ArrayList;
@@ -32,13 +30,9 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.items.IItemHandler;
 import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
 
 public class EntityAIWorkMachinist
     extends AbstractEntityAICrafting<JobMachinist, BuildingMachinist> {
-  // Directly reference a slf4j logger
-  private static final Logger LOGGER = LogUtils.getLogger();
-
   /**
    * Sets up some important skeleton stuff for every ai.
    *
@@ -284,20 +278,10 @@ public class EntityAIWorkMachinist
       stack = outputFluidHandler.drain(stack, IFluidHandler.FluidAction.EXECUTE);
 
       int remaining = stack.getAmount();
-      LOGGER.info(
-          "{}: Need to drain {}mb of {}",
-          Constants.MOD_ID,
-          remaining,
-          stack.getDisplayName().getString());
       while (remaining > 0) {
         ItemStack container = new ItemStack(ModItems.courierTank);
         IFluidHandlerItem itemContainer = FluidUtil.getFluidHandler(container).resolve().get();
         int amount = itemContainer.fill(stack, IFluidHandler.FluidAction.EXECUTE);
-        LOGGER.info(
-            "{}: Creating new courier tank with {}mb of {}",
-            Constants.MOD_ID,
-            amount,
-            stack.getDisplayName().getString());
         remaining -= amount;
         result.add(container);
       }

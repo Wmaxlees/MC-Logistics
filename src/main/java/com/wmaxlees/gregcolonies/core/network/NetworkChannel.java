@@ -4,8 +4,8 @@ import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.collect.Maps;
 import com.minecolonies.api.network.IMessage;
-import com.mojang.logging.LogUtils;
 import com.wmaxlees.gregcolonies.api.util.constant.Constants;
+import com.wmaxlees.gregcolonies.api.util.constant.Logger;
 import com.wmaxlees.gregcolonies.core.network.messages.inventory.InventoryActionMessage;
 import com.wmaxlees.gregcolonies.core.network.messages.server.colony.building.AssignFilterableFluidMessage;
 import com.wmaxlees.gregcolonies.core.network.messages.server.colony.building.OpenMachinistCraftingGUIMessage;
@@ -33,12 +33,8 @@ import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
-import org.slf4j.Logger;
 
 public class NetworkChannel {
-  // Directly reference a slf4j logger
-  private static final Logger LOGGER = LogUtils.getLogger();
-
   /** Forge network channel */
   private final SimpleChannel rawChannel;
 
@@ -354,10 +350,9 @@ public class NetworkChannel {
 
       // Ensure we only log once for a given packet.
       if (hasWarned.getAndSet(false)) {
-        LOGGER.warn(
-            "Splitting message: "
-                + creator.get().getClass()
-                + " it is too big to send normally. This message is only printed once");
+        Logger.WarnLog(
+            "Splitting message: {} it is too big to send normally. This message is only printed once",
+            creator.get().getClass().getName());
       }
     }
   }

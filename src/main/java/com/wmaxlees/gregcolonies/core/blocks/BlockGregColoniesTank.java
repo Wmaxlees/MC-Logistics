@@ -4,7 +4,6 @@ import com.minecolonies.api.blocks.AbstractBlockMinecolonies;
 import com.minecolonies.api.colony.IColony;
 import com.minecolonies.api.colony.IColonyManager;
 import com.minecolonies.api.colony.permissions.Action;
-import com.mojang.logging.LogUtils;
 import com.wmaxlees.gregcolonies.api.util.constant.Constants;
 import com.wmaxlees.gregcolonies.core.tileentities.TileEntityTank;
 import net.minecraft.core.BlockPos;
@@ -27,13 +26,9 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.slf4j.Logger;
 
 public class BlockGregColoniesTank extends AbstractBlockMinecolonies<BlockGregColoniesTank>
     implements EntityBlock {
-  // Directly reference a slf4j logger
-  private static final Logger LOGGER = LogUtils.getLogger();
-
   /** The hardness this block has. */
   private static final float BLOCK_HARDNESS = 10.0F;
 

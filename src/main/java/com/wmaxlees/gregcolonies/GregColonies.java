@@ -1,6 +1,5 @@
 package com.wmaxlees.gregcolonies;
 
-import com.mojang.logging.LogUtils;
 import com.wmaxlees.gregcolonies.api.creativetab.ModCreativeTabs;
 import com.wmaxlees.gregcolonies.api.util.constant.Constants;
 import com.wmaxlees.gregcolonies.apiimp.initializer.*;
@@ -18,14 +17,11 @@ import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.NewRegistryEvent;
 import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
 
 @Mod(GregColonies.MODID)
 public class GregColonies {
   // Define mod id in a common place for everything to reference
   public static final String MODID = Constants.MOD_ID;
-  // Directly reference a slf4j logger
-  private static final Logger LOGGER = LogUtils.getLogger();
 
   public GregColonies() {
     TileEntityInitializer.BLOCK_ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
