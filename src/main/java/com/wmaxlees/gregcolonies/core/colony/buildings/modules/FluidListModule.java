@@ -111,6 +111,7 @@ public class FluidListModule extends AbstractBuildingModule implements IPersiste
     this.fluidsAllowed = ImmutableList.copyOf(defaultValues);
   }
 
+  @Override
   public void serializeToView(@NotNull final FriendlyByteBuf buf) {
     buf.writeInt(fluidsAllowed.size());
     for (final FluidStorage fluid : fluidsAllowed) {

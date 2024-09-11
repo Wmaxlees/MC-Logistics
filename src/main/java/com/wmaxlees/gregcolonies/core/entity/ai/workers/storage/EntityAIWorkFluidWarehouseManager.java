@@ -18,7 +18,7 @@ import com.wmaxlees.gregcolonies.api.crafting.FluidStorage;
 import com.wmaxlees.gregcolonies.api.items.ModItems;
 import com.wmaxlees.gregcolonies.api.util.constant.translation.RequestSystemTranslatableConstants;
 import com.wmaxlees.gregcolonies.core.colony.buildings.modules.FluidListModule;
-import com.wmaxlees.gregcolonies.core.colony.buildings.modules.TankUserModule;
+import com.wmaxlees.gregcolonies.core.colony.buildings.modules.InventoryUserModule;
 import com.wmaxlees.gregcolonies.core.colony.buildings.workerbuildings.BuildingFluidWarehouse;
 import com.wmaxlees.gregcolonies.core.colony.jobs.JobFluidWarehouseManager;
 import com.wmaxlees.gregcolonies.core.colony.requestable.CourierTanksRequestable;
@@ -230,7 +230,8 @@ public class EntityAIWorkFluidWarehouseManager
       return START_WORKING;
     }
 
-    TankUserModule tankUserModule = building.getFirstModuleOccurance(TankUserModule.class);
+    InventoryUserModule inventoryUserModule =
+        building.getFirstModuleOccurance(InventoryUserModule.class);
 
     if (FluidUtil.getFluidContained(
             worker.getInventoryCitizen().getHeldItem(InteractionHand.MAIN_HAND))
@@ -248,7 +249,7 @@ public class EntityAIWorkFluidWarehouseManager
             .get()
             .getFluid();
 
-    for (BlockPos tankPos : tankUserModule.getRegisteredBlocks()) {
+    for (BlockPos tankPos : inventoryUserModule.getTanks()) {
       BlockEntity tank = worker.level().getBlockEntity(tankPos);
       if (tank == null) {
         continue;

@@ -77,7 +77,8 @@ public final class GregColoniesModBuildingsInitializer {
                         new ResourceLocation(Constants.MOD_ID, ModBuildings.FLUID_WAREHOUSE_ID))
                     .addBuildingModuleProducer(FLUID_WAREHOUSE_WORK)
                     .addBuildingModuleProducer(FLUID_LIST_COURIER_TANKS)
-                    .addBuildingModuleProducer(TANK)
+                    .addBuildingModuleProducer(INVENTORY_USER)
+                    .addBuildingModuleProducer(TANK_SELECTOR_TOOL)
                     .createBuildingEntry());
   }
 }

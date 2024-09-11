@@ -3,7 +3,6 @@ package com.wmaxlees.gregcolonies.core.colony.buildings.modules;
 import static com.wmaxlees.gregcolonies.api.util.constant.ItemListConstants.*;
 
 import com.minecolonies.api.colony.buildings.modules.IBuildingModule;
-import com.minecolonies.api.colony.buildings.modules.IBuildingModuleView;
 import com.minecolonies.api.colony.buildings.registry.BuildingEntry;
 import com.minecolonies.api.entity.citizen.Skill;
 import com.minecolonies.core.colony.buildings.modules.CraftingWorkerBuildingModule;
@@ -14,6 +13,7 @@ import com.wmaxlees.gregcolonies.api.crafting.FluidStorage;
 import com.wmaxlees.gregcolonies.api.items.ModItems;
 import com.wmaxlees.gregcolonies.api.util.constant.translation.RequestSystemTranslatableConstants;
 import com.wmaxlees.gregcolonies.core.colony.buildings.moduleviews.FluidListModuleView;
+import com.wmaxlees.gregcolonies.core.colony.buildings.moduleviews.InventoryUserModuleView;
 import com.wmaxlees.gregcolonies.core.colony.buildings.moduleviews.PlayerDefinedCraftingModuleView;
 import com.wmaxlees.gregcolonies.core.colony.buildings.moduleviews.SearchableCraftingModuleView;
 import com.wmaxlees.gregcolonies.core.colony.buildings.workerbuildings.BuildingToolPartSmith;
@@ -25,8 +25,17 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class BuildingModules {
 
   /** Global */
-  public static final BuildingEntry.ModuleProducer<TankUserModule, IBuildingModuleView> TANK =
-      new BuildingEntry.ModuleProducer<>("tank", TankUserModule::new, null);
+  public static final BuildingEntry.ModuleProducer<InventoryUserModule, InventoryUserModuleView>
+      INVENTORY_USER =
+          new BuildingEntry.ModuleProducer<>(
+              "inventory_user", InventoryUserModule::new, () -> InventoryUserModuleView::new);
+
+  public static final BuildingEntry.ModuleProducer<IBuildingModule, ToolModuleView>
+      TANK_SELECTOR_TOOL =
+          new BuildingEntry.ModuleProducer<>(
+              "fluid_inventory_tool",
+              null,
+              () -> () -> new ToolModuleView(ModItems.scepterTankInventory));
 
   /** Craftmanship */
   public static final BuildingEntry.ModuleProducer<

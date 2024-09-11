@@ -7,12 +7,14 @@ import com.minecolonies.api.colony.IColony;
 import com.minecolonies.api.colony.IColonyManager;
 import com.minecolonies.api.colony.IColonyView;
 import com.minecolonies.api.colony.buildings.IBuilding;
+import com.minecolonies.api.colony.buildings.views.IBuildingView;
 import com.minecolonies.api.items.IBlockOverlayItem;
 import com.minecolonies.api.util.BlockPosUtil;
 import com.minecolonies.core.Network;
 import com.minecolonies.core.items.AbstractItemMinecolonies;
 import com.minecolonies.core.network.messages.client.colony.ColonyViewBuildingViewMessage;
-import com.wmaxlees.gregcolonies.core.colony.buildings.workerbuildings.BuildingMachinist;
+import com.wmaxlees.gregcolonies.core.colony.buildings.modules.InventoryUserModule;
+import com.wmaxlees.gregcolonies.core.colony.buildings.moduleviews.InventoryUserModuleView;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -29,13 +31,13 @@ import net.minecraft.world.phys.AABB;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class ItemScepterMachinist extends AbstractItemMinecolonies
+public abstract class ItemScepterInventorySelector extends AbstractItemMinecolonies
     implements IBlockOverlayItem {
   private static final int HUT_OVERLAY = 0xFFFF0000;
-  private static final int INPUT_OVERLAY = 0xFFFFFF00;
-  private static final int OUTPUT_OVERLAY = 0xFF00FF00;
+  private static final int ITEM_OVERLAY = 0xFFFFFF00;
+  private static final int FLUID_OVERLAY = 0xFF00FF00;
 
-  public ItemScepterMachinist(final String name, final Properties properties) {
+  public ItemScepterInventorySelector(final String name, final Properties properties) {
     super(name, properties.stacksTo(1));
   }
 
@@ -56,7 +58,7 @@ public abstract class ItemScepterMachinist extends AbstractItemMinecolonies
             .getColonyByWorld(compound.getInt(TAG_ID), useContext.getLevel());
     final BlockPos hutPos = BlockPosUtil.read(compound, TAG_POS);
     final IBuilding hut = colony.getBuildingManager().getBuilding(hutPos);
-    final BuildingMachinist building = (BuildingMachinist) hut;
+    final InventoryUserModule invModule = hut.getFirstModuleOccurance(InventoryUserModule.class);
 
     BlockEntity blockEntity = useContext.getLevel().getBlockEntity(useContext.getClickedPos());
     if (blockEntity == null) {
@@ -64,10 +66,10 @@ public abstract class ItemScepterMachinist extends AbstractItemMinecolonies
       return super.useOn(useContext);
     }
 
-    if (blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).isPresent()) {
-      handleBlockAssign(building, useContext.getClickedPos());
+    if (hasCapabilities(blockEntity)) {
+      handleBlockAssign(invModule, useContext.getClickedPos());
       Network.getNetwork()
-          .sendToPlayer(new ColonyViewBuildingViewMessage(building), (ServerPlayer) player);
+          .sendToPlayer(new ColonyViewBuildingViewMessage(hut), (ServerPlayer) player);
     }
 
     return super.useOn(useContext);
@@ -82,13 +84,20 @@ public abstract class ItemScepterMachinist extends AbstractItemMinecolonies
         IColonyManager.getInstance().getColonyView(compound.getInt(TAG_ID), world.dimension());
     final BlockPos pos = BlockPosUtil.read(compound, TAG_POS);
 
-    if (colony != null && colony.getBuilding(pos) instanceof final BuildingMachinist.View hut) {
+    if (colony != null && colony.getBuilding(pos) != null) {
+      final IBuildingView hut = colony.getBuilding(pos);
+      InventoryUserModuleView moduleView = hut.getModuleViewByType(InventoryUserModuleView.class);
       final List<OverlayBox> overlays = new ArrayList<>();
 
       overlays.add(new OverlayBox(new AABB(pos), HUT_OVERLAY, 0.02f, true));
 
-      overlays.add(new OverlayBox(new AABB(hut.getInputLocation()), INPUT_OVERLAY, 0.02f, true));
-      overlays.add(new OverlayBox(new AABB(hut.getOutputLocation()), OUTPUT_OVERLAY, 0.02f, true));
+      for (BlockPos targetPos : moduleView.getChests()) {
+        overlays.add(new OverlayBox(new AABB(targetPos), ITEM_OVERLAY, 0.02f, true));
+      }
+
+      for (BlockPos targetPos : moduleView.getTanks()) {
+        overlays.add(new OverlayBox(new AABB(targetPos), FLUID_OVERLAY, 0.02f, true));
+      }
 
       return overlays;
     }
@@ -96,27 +105,39 @@ public abstract class ItemScepterMachinist extends AbstractItemMinecolonies
     return Collections.emptyList();
   }
 
-  protected abstract void handleBlockAssign(BuildingMachinist building, final BlockPos blockPos);
+  protected abstract boolean hasCapabilities(BlockEntity blockEntity);
 
-  public static class Input extends ItemScepterMachinist {
-    public Input(final Properties properties) {
-      super("sceptermachinistinput", properties);
+  protected abstract void handleBlockAssign(InventoryUserModule module, final BlockPos blockPos);
+
+  public static class Item extends ItemScepterInventorySelector {
+    public Item(final Properties properties) {
+      super("scepterinventoryselectoritem", properties);
     }
 
     @Override
-    protected void handleBlockAssign(BuildingMachinist building, BlockPos blockPos) {
-      building.setInputLocation(blockPos);
+    protected boolean hasCapabilities(final BlockEntity blockEntity) {
+      return blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).isPresent();
+    }
+
+    @Override
+    protected void handleBlockAssign(InventoryUserModule module, BlockPos blockPos) {
+      module.toggleItemLocation(blockPos);
     }
   }
 
-  public static class Output extends ItemScepterMachinist {
-    public Output(final Properties properties) {
-      super("sceptermachinistoutput", properties);
+  public static class Fluid extends ItemScepterInventorySelector {
+    public Fluid(final Properties properties) {
+      super("scepterinventoryselectorfluid", properties);
     }
 
     @Override
-    protected void handleBlockAssign(BuildingMachinist building, BlockPos blockPos) {
-      building.setOutputLocation(blockPos);
+    protected boolean hasCapabilities(final BlockEntity blockEntity) {
+      return blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER).isPresent();
+    }
+
+    @Override
+    protected void handleBlockAssign(InventoryUserModule module, BlockPos blockPos) {
+      module.toggleFluidLocation(blockPos);
     }
   }
 }
