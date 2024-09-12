@@ -1,6 +1,12 @@
 {
-  "parent": "minecraft:item/handheld",
+  "parent": "forge:item/default",
+  "loader": "forge:fluid_container",
   "textures": {
-    "layer0": "minecolonies:item/food/large_empty_bottle"
-  }
+    "base": "gregcolonies:item/large_empty_bottle",
+    "fluid": "gregcolonies:item/fluid_mask",
+    "particle": "gregcolonies:item/large_empty_bottle"
+  },
+  "flip_gas": false,
+  "apply_tint": true,
+  "fluid": "minecraft:empty"
 }
