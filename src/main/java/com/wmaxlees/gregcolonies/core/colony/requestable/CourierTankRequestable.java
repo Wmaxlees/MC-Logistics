@@ -20,26 +20,26 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
-public class CourierTankRequestable implements IDeliverable {
+public class CourierTankRequestable implements IFluidRequestable {
   private static final Set<TypeToken<?>> TYPE_TOKENS =
       ReflectionUtils.getSuperClasses(TypeToken.of(CourierTankRequestable.class)).stream()
           .filter(type -> !type.equals(TypeConstants.OBJECT))
           .collect(Collectors.toSet());
 
   ////// --------------------------- NBTConstants --------------------------- \\\\\\
-  private static final String NBT_COUNT = "count";
+  private static final String NBT_MILLI_BUCKETS = "milli_buckets";
   private static final String NBT_FLUID = "fluid";
   private static final String NBT_RESULT = "result";
   private static final String NBT_EXACT_AMOUNT = "exact_amount";
   ////// --------------------------- NBTConstants --------------------------- \\\\\\
 
-  private final int count;
+  private final int milliBuckets;
   private final Fluid fluid;
   private ItemStack result;
   private final boolean exactAmount;
 
-  public CourierTankRequestable(final int count, Fluid fluid, final boolean exactAmount) {
-    this.count = count;
+  public CourierTankRequestable(final int milliBuckets, Fluid fluid, final boolean exactAmount) {
+    this.milliBuckets = milliBuckets;
     this.fluid = fluid;
     this.exactAmount = exactAmount;
   }
@@ -71,12 +71,12 @@ public class CourierTankRequestable implements IDeliverable {
 
   @Override
   public int getCount() {
-    return count;
+    return milliBuckets;
   }
 
   @Override
   public int getMinimumCount() {
-    return exactAmount ? count : 1;
+    return exactAmount ? milliBuckets : 1;
   }
 
   @NotNull
@@ -90,16 +90,17 @@ public class CourierTankRequestable implements IDeliverable {
     return TYPE_TOKENS;
   }
 
-  public Fluid getFluid() {
-    return fluid;
+  @Override
+  public boolean fluidMatch(final Fluid fluid) {
+    return fluid.isSame(this.fluid);
   }
 
   public static CompoundTag serialize(
       final IFactoryController controller, final CourierTankRequestable object) {
     CompoundTag result = new CompoundTag();
 
-    result.putInt(NBT_COUNT, object.getCount());
-    result.putString(NBT_FLUID, ForgeRegistries.FLUIDS.getKey(object.getFluid()).toString());
+    result.putInt(NBT_MILLI_BUCKETS, object.getCount());
+    result.putString(NBT_FLUID, ForgeRegistries.FLUIDS.getKey(object.fluid).toString());
     if (object.result != null) {
       result.put(NBT_RESULT, object.result.serializeNBT());
     }
@@ -110,7 +111,7 @@ public class CourierTankRequestable implements IDeliverable {
 
   public static CourierTankRequestable deserialize(
       final IFactoryController controller, final CompoundTag tag) {
-    final int count = tag.getInt(NBT_COUNT);
+    final int count = tag.getInt(NBT_MILLI_BUCKETS);
     final Fluid fluid =
         ForgeRegistries.FLUIDS.getValue(new ResourceLocation(tag.getString(NBT_FLUID)));
     final boolean exactAmount = tag.getBoolean(NBT_EXACT_AMOUNT);
@@ -128,7 +129,7 @@ public class CourierTankRequestable implements IDeliverable {
       final FriendlyByteBuf buffer,
       final CourierTankRequestable object) {
     buffer.writeInt(object.getCount());
-    buffer.writeFluidStack(new FluidStack(object.getFluid(), 1000));
+    buffer.writeFluidStack(new FluidStack(object.fluid, 1000));
     buffer.writeItemStack(object.result != null ? object.result : ItemStack.EMPTY, false);
     buffer.writeBoolean(object.exactAmount);
   }
@@ -144,5 +145,14 @@ public class CourierTankRequestable implements IDeliverable {
     requestable.result = result;
 
     return requestable;
+  }
+
+  @Override
+  public String fluidDescName() {
+    return fluid.getFluidType().getDescription().getString();
+  }
+
+  public Fluid getFluid() {
+    return fluid;
   }
 }

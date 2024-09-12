@@ -25,7 +25,7 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
-public class CourierTanksRequestable implements IDeliverable {
+public class CourierTanksRequestable implements IFluidRequestable {
   private static final Set<TypeToken<?>> TYPE_TOKENS =
       ReflectionUtils.getSuperClasses(TypeToken.of(CourierTanksRequestable.class)).stream()
           .filter(type -> !type.equals(TypeConstants.OBJECT))
@@ -98,8 +98,9 @@ public class CourierTanksRequestable implements IDeliverable {
     return TYPE_TOKENS;
   }
 
-  public List<Fluid> getFluids() {
-    return fluids;
+  @Override
+  public boolean fluidMatch(final Fluid fluid) {
+    return this.fluids.contains(fluid);
   }
 
   public static CompoundTag serialize(
@@ -152,7 +153,7 @@ public class CourierTanksRequestable implements IDeliverable {
       final FriendlyByteBuf buffer,
       final CourierTanksRequestable object) {
     buffer.writeInt(object.getCount());
-    buffer.writeInt(object.getFluids().size());
+    buffer.writeInt(object.fluids.size());
     object.fluids.forEach(fluid -> buffer.writeFluidStack(new FluidStack(fluid, 1000)));
     buffer.writeItemStack(object.result != null ? object.result : ItemStack.EMPTY, false);
     buffer.writeBoolean(object.exactAmount);
@@ -173,5 +174,10 @@ public class CourierTanksRequestable implements IDeliverable {
     requestable.result = result;
 
     return requestable;
+  }
+
+  @Override
+  public String fluidDescName() {
+    return this.fluids.size() + " Fluids";
   }
 }

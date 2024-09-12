@@ -29,7 +29,7 @@ public class CourierTankFluidHandler implements IFluidHandlerItem, ICapabilityPr
 
   private static final int MAX_TANKS = 1;
 
-  private static final int MAX_CAPACITY = 6;
+  public static final int MAX_CAPACITY_BUCKETS = 6;
 
   private final List<FluidStack> tankStacks =
       Stream.generate(() -> FluidStack.EMPTY)
@@ -80,7 +80,7 @@ public class CourierTankFluidHandler implements IFluidHandlerItem, ICapabilityPr
       return -1;
     }
 
-    return MAX_CAPACITY * FluidType.BUCKET_VOLUME;
+    return MAX_CAPACITY_BUCKETS * FluidType.BUCKET_VOLUME;
   }
 
   @Override
@@ -125,7 +125,7 @@ public class CourierTankFluidHandler implements IFluidHandlerItem, ICapabilityPr
       return 0;
     }
 
-    return (MAX_CAPACITY * FluidType.BUCKET_VOLUME) - tankStacks.get(tank).getAmount();
+    return (MAX_CAPACITY_BUCKETS * FluidType.BUCKET_VOLUME) - tankStacks.get(tank).getAmount();
   }
 
   @Override

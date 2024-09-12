@@ -5,4 +5,5 @@ public class SerializationIdentifierConstants {
 
   public static final short COURIER_TANK_REQUEST_ID = 100;
   public static final short COURIER_TANKS_REQUEST_ID = 101;
+  public static final short FLUID_WAREHOUSE_REQUEST_RESOLVER_ID = 102;
 }
