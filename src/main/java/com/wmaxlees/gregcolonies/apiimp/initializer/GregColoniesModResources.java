@@ -1,7 +1,7 @@
 package com.wmaxlees.gregcolonies.apiimp.initializer;
 
-import com.mojang.logging.LogUtils;
 import com.wmaxlees.gregcolonies.api.util.constant.Constants;
+import com.wmaxlees.gregcolonies.api.util.constant.Logger;
 import com.wmaxlees.gregcolonies.data.GregColoniesModels;
 import com.wmaxlees.gregcolonies.data.GregColoniesRecipes;
 import com.wmaxlees.gregcolonies.data.pack.GregColoniesDynamicDataPack;
@@ -12,13 +12,9 @@ import net.minecraft.server.packs.repository.Pack;
 import net.minecraftforge.event.AddPackFindersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import org.slf4j.Logger;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = Constants.MOD_ID)
 public class GregColoniesModResources {
-  // Directly reference a slf4j logger
-  private static final Logger LOGGER = LogUtils.getLogger();
-
   @SubscribeEvent
   public static void registerPackFinders(AddPackFindersEvent event) {
     if (event.getPackType() == PackType.CLIENT_RESOURCES) {
@@ -27,7 +23,7 @@ public class GregColoniesModResources {
 
       long startTime = System.currentTimeMillis();
       GregColoniesModels.modelAddition(GregColoniesDynamicResourcePack::addItemModel);
-      LOGGER.info(
+      Logger.InfoLog(
           "GregColonies Resource loading took {}ms", System.currentTimeMillis() - startTime);
 
       event.addRepositorySource(
@@ -44,7 +40,7 @@ public class GregColoniesModResources {
       long startTime = System.currentTimeMillis();
       GregColoniesRecipes.recipeAddition(GregColoniesDynamicDataPack::addRecipe);
       GregColoniesRecipes.toolmakerRecipeAddition(GregColoniesDynamicDataPack::addCustomRecipe);
-      LOGGER.info("GregColonies Data loading took {}ms", System.currentTimeMillis() - startTime);
+      Logger.InfoLog("GregColonies Data loading took {}ms", System.currentTimeMillis() - startTime);
 
       event.addRepositorySource(
           new GregColoniesPackSource(

@@ -1,10 +1,11 @@
 package com.wmaxlees.gregcolonies;
 
-import com.mojang.logging.LogUtils;
 import com.wmaxlees.gregcolonies.api.creativetab.ModCreativeTabs;
 import com.wmaxlees.gregcolonies.api.util.constant.Constants;
 import com.wmaxlees.gregcolonies.apiimp.initializer.*;
 import com.wmaxlees.gregcolonies.core.Network;
+import com.wmaxlees.gregcolonies.core.colony.requestsystem.init.RequestSystemInitializer;
+import com.wmaxlees.gregcolonies.core.colony.requestsystem.init.StandardFactoryControllerInitializer;
 import com.wmaxlees.gregcolonies.core.event.EventHandler;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.server.ServerStartingEvent;
@@ -12,17 +13,15 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.NewRegistryEvent;
 import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
 
 @Mod(GregColonies.MODID)
 public class GregColonies {
   // Define mod id in a common place for everything to reference
   public static final String MODID = Constants.MOD_ID;
-  // Directly reference a slf4j logger
-  private static final Logger LOGGER = LogUtils.getLogger();
 
   public GregColonies() {
     TileEntityInitializer.BLOCK_ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
@@ -44,6 +43,8 @@ public class GregColonies {
   @SubscribeEvent
   public static void preInit(@NotNull final FMLCommonSetupEvent event) {
     Network.getNetwork().registerCommonMessages();
+
+    StandardFactoryControllerInitializer.onPreInit();
   }
 
   // You can use SubscribeEvent and let the Event Bus discover methods to call
@@ -59,5 +60,10 @@ public class GregColonies {
   public static class ClientModEvents {
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {}
+  }
+
+  @SubscribeEvent
+  public static void onLoadComplete(final FMLLoadCompleteEvent event) {
+    RequestSystemInitializer.onPostInit();
   }
 }

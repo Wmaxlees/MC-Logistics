@@ -1,0 +1,36 @@
+{
+  "credit": "Made with Blockbench",
+  "render_type": "cutout",
+  "texture_size": [64, 64],
+  "textures": {
+    "0": "block/iron_block",
+    "1": "block/glass",
+    "particle": "block/glass"
+  },
+  "elements": [
+    {
+      "from": [2, 0, 2],
+      "to": [14, 10, 14],
+      "faces": {
+        "north": {"texture": "#1"},
+        "east": {"texture": "#1"},
+        "south": {"texture": "#1"},
+        "west": {"texture": "#1"},
+        "up": {"texture": "#1"},
+        "down": {"texture": "#1"}
+      }
+    },
+    {
+      "from": [5, 10, 5],
+      "to": [11, 12, 11],
+      "faces": {
+        "north": {"texture": "#0"},
+        "east": {"texture": "#0"},
+        "south": {"texture": "#0"},
+        "west": {"texture": "#0"},
+        "up": {"texture": "#0"},
+        "down": {"texture": "#0"}
+      }
+    }
+  ]
+}

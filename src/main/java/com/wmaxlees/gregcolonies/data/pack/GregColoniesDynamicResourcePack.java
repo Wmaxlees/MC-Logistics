@@ -4,7 +4,6 @@ import com.google.common.collect.Sets;
 import com.google.gson.JsonElement;
 import com.gregtechceu.gtceu.api.addon.AddonFinder;
 import com.gregtechceu.gtceu.api.addon.IGTAddon;
-import com.mojang.logging.LogUtils;
 import com.wmaxlees.gregcolonies.api.util.constant.Constants;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import it.unimi.dsi.fastutil.objects.ObjectSet;
@@ -28,12 +27,8 @@ import net.minecraft.server.packs.metadata.pack.PackMetadataSection;
 import net.minecraft.server.packs.resources.IoSupplier;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
-import org.slf4j.Logger;
 
 public class GregColoniesDynamicResourcePack implements PackResources {
-  // Directly reference a slf4j logger
-  private static final Logger LOGGER = LogUtils.getLogger();
-
   protected static final ObjectSet<String> CLIENT_DOMAINS = new ObjectOpenHashSet<>();
 
   @ApiStatus.Internal

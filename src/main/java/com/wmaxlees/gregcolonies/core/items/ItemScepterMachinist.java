@@ -12,7 +12,6 @@ import com.minecolonies.api.util.BlockPosUtil;
 import com.minecolonies.core.Network;
 import com.minecolonies.core.items.AbstractItemMinecolonies;
 import com.minecolonies.core.network.messages.client.colony.ColonyViewBuildingViewMessage;
-import com.mojang.logging.LogUtils;
 import com.wmaxlees.gregcolonies.core.colony.buildings.workerbuildings.BuildingMachinist;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,13 +28,9 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
 
 public abstract class ItemScepterMachinist extends AbstractItemMinecolonies
     implements IBlockOverlayItem {
-  // Directly reference a slf4j logger
-  private static final Logger LOGGER = LogUtils.getLogger();
-
   private static final int HUT_OVERLAY = 0xFFFF0000;
   private static final int INPUT_OVERLAY = 0xFFFFFF00;
   private static final int OUTPUT_OVERLAY = 0xFF00FF00;

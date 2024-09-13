@@ -1,6 +1,5 @@
 package com.wmaxlees.gregcolonies.apiimp.initializer;
 
-import com.mojang.logging.LogUtils;
 import com.wmaxlees.gregcolonies.api.items.ModItems;
 import com.wmaxlees.gregcolonies.api.util.constant.Constants;
 import com.wmaxlees.gregcolonies.core.items.ItemToolHead;
@@ -11,13 +10,9 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegisterEvent;
-import org.slf4j.Logger;
 
 @Mod.EventBusSubscriber(modid = Constants.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class GregColoniesModItemsInitializer {
-  // Directly reference a slf4j logger
-  private static final Logger LOGGER = LogUtils.getLogger();
-
   @SubscribeEvent
   public static void registerColors(RegisterColorHandlersEvent.Item event) {
     ModItems.TOOL_HEAD_ITEMS
@@ -54,6 +49,9 @@ public final class GregColoniesModItemsInitializer {
 
       registry.register("sceptermachinistinput", ModItems.scepterMachinistInput);
       registry.register("sceptermachinistoutput", ModItems.scepterMachinistOutput);
+      registry.register("sceptertankinventory", ModItems.scepterTankInventory);
+      registry.register("scepterchestinventory", ModItems.scepterChestInventory);
+      registry.register("courier_tank", ModItems.courierTank);
     }
   }
 }

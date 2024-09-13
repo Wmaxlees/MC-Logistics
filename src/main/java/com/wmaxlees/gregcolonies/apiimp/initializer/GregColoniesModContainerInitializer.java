@@ -1,6 +1,5 @@
 package com.wmaxlees.gregcolonies.apiimp.initializer;
 
-import com.mojang.logging.LogUtils;
 import com.wmaxlees.gregcolonies.api.inventory.ModContainers;
 import com.wmaxlees.gregcolonies.api.inventory.container.ContainerCraftingPlayerDefined;
 import com.wmaxlees.gregcolonies.api.util.constant.Constants;
@@ -13,13 +12,9 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import org.slf4j.Logger;
 
 @Mod.EventBusSubscriber(modid = Constants.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class GregColoniesModContainerInitializer {
-  // Directly reference a slf4j logger
-  private static final Logger LOGGER = LogUtils.getLogger();
-
   public static final DeferredRegister<MenuType<?>> CONTAINERS =
       DeferredRegister.create(ForgeRegistries.MENU_TYPES, Constants.MOD_ID);
 

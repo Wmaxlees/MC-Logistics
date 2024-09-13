@@ -6,6 +6,8 @@ import com.gregtechceu.gtceu.api.GTCEuAPI;
 import com.gregtechceu.gtceu.api.data.chemical.material.Material;
 import com.gregtechceu.gtceu.api.data.chemical.material.properties.PropertyKey;
 import com.gregtechceu.gtceu.api.item.tool.GTToolType;
+import com.wmaxlees.gregcolonies.core.items.ItemCourierTank;
+import com.wmaxlees.gregcolonies.core.items.ItemScepterInventorySelector;
 import com.wmaxlees.gregcolonies.core.items.ItemScepterMachinist;
 import com.wmaxlees.gregcolonies.core.items.ItemToolHead;
 import net.minecraft.world.item.Item;
@@ -20,6 +22,10 @@ public final class ModItems {
 
   public static Item scepterMachinistInput;
   public static Item scepterMachinistOutput;
+  public static Item scepterTankInventory;
+  public static Item scepterChestInventory;
+
+  public static Item courierTank;
 
   static {
     for (Material mat : GTCEuAPI.materialManager.getRegisteredMaterials()) {
@@ -34,6 +40,10 @@ public final class ModItems {
 
     scepterMachinistInput = new ItemScepterMachinist.Input(new Item.Properties());
     scepterMachinistOutput = new ItemScepterMachinist.Output(new Item.Properties());
+    scepterTankInventory = new ItemScepterInventorySelector.Fluid(new Item.Properties());
+    scepterChestInventory = new ItemScepterInventorySelector.Item(new Item.Properties());
+
+    courierTank = new ItemCourierTank(new Item.Properties());
   }
 
   private ModItems() {}

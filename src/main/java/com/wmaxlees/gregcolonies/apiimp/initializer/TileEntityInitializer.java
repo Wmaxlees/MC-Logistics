@@ -10,8 +10,5 @@ public class TileEntityInitializer {
       DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, Constants.MOD_ID);
 
   static {
-    // GregColoniesTileEntities.TOOLMAKER = BLOCK_ENTITIES.register("toolmaker",
-    //         () -> BlockEntityType.Builder.of(TileEntityToolmaker::new,
-    // ModBlocks.blockHutToolmaker).build(null));
   }
 }
