@@ -41,31 +41,31 @@ authors="${mod_authors}" #optional
 # The description text for the mod (multi line!) (#mandatory)
 description='''${mod_description}'''
 
-[[dependencies.gregcolonies]]
+[[dependencies.mclogistics]]
     modId="forge"
     mandatory=true
     versionRange="${forge_version_range}"
     ordering="NONE"
     side="BOTH"
-[[dependencies.gregcolonies]]
+[[dependencies.mclogistics]]
     modId="minecraft"
     mandatory=true
     versionRange="${minecraft_version_range}"
     ordering="NONE"
     side="BOTH"
-[[dependencies.gregcolonies]]
+[[dependencies.mclogistics]]
     modId="minecolonies"
     mandatory=true
     versionRange="[${minecolonies_version},)"
     ordering="AFTER"
     side="BOTH"
-[[dependencies.gregcolonies]]
+[[dependencies.mclogistics]]
     modId="gtceu"
     mandatory=false
     versionRange="[${gregtechceu_version},)"
     ordering="AFTER"
     side="BOTH"
-[[dependencies.gregcolonies]]
+[[dependencies.mclogistics]]
     modId="registrate"
     mandatory=false
     versionRange="[${registrate_version},)"

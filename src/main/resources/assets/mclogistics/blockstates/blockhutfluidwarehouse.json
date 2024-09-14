@@ -1,0 +1,20 @@
+{
+    "variants": {
+      "facing=east": {
+        "model": "mclogistics:block/blockhutfluidwarehouse",
+        "y": 0
+      },
+      "facing=south": {
+        "model": "mclogistics:block/blockhutfluidwarehouse",
+        "y": 90
+      },
+      "facing=west": {
+        "model": "mclogistics:block/blockhutfluidwarehouse",
+        "y": 180
+      },
+      "facing=north": {
+        "model": "mclogistics:block/blockhutfluidwarehouse",
+        "y": 270
+      }
+    }
+  }

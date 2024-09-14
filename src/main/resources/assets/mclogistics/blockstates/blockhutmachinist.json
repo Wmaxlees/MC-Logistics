@@ -1,0 +1,20 @@
+{
+    "variants": {
+      "facing=east": {
+        "model": "mclogistics:block/blockhutmachinist",
+        "y": 0
+      },
+      "facing=south": {
+        "model": "mclogistics:block/blockhutmachinist",
+        "y": 90
+      },
+      "facing=west": {
+        "model": "mclogistics:block/blockhutmachinist",
+        "y": 180
+      },
+      "facing=north": {
+        "model": "mclogistics:block/blockhutmachinist",
+        "y": 270
+      }
+    }
+  }

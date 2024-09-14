@@ -1,0 +1,14 @@
+{
+    "icon": "city_of_industry.png",
+    "name": "City of Industry",
+    "authors": [
+        "wmaxlees", "many"
+    ],
+    "desc": "Itegrate your city with other mods! The non-Minecolonies: Logistics buildings are from the original Minecolonies pack.",
+    "mods": [
+        "structurize",
+        "minecolonies"
+    ],
+    "version": "1",
+    "pack-format": "1"
+}

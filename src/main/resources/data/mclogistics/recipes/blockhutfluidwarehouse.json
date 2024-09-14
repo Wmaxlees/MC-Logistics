@@ -1,0 +1,24 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "key": {
+      "B": {
+        "item": "minecraft:glass_bottles"
+      },
+      "T": {
+        "item": "structurize:sceptergold"
+      },
+      "X": {
+        "tag": "minecraft:planks"
+      }
+    },
+    "pattern": [
+      "XTX",
+      "BBB",
+      "XXX"
+    ],
+    "result": {
+      "item": "mclogistics:blockhutfluidwarehouse"
+    },
+    "show_notification": true
+  }

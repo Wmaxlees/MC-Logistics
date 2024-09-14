@@ -1,0 +1,27 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "key": {
+      "C": {
+        "item": "minecraft:copper_ingot"
+      },
+      "A": {
+        "item": "minecraft:amethyst_shard"
+      },
+      "T": {
+        "item": "structurize:sceptergold"
+      },
+      "X": {
+        "tag": "minecraft:planks"
+      }
+    },
+    "pattern": [
+      "XTX",
+      "CAC",
+      "XXX"
+    ],
+    "result": {
+      "item": "mclogistics:blockhutmachinist"
+    },
+    "show_notification": true
+  }

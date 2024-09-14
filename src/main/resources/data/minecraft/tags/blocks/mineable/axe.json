@@ -1,5 +1,6 @@
 {
     "values": [
-        "gregcolonies:blockhuttoolmaker"
+        "mclogistics:blockhutmachinist",
+        "mclogistics:blockhutfluidwarehouse"
     ]
 }
