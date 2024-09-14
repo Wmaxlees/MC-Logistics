@@ -1,7 +1,7 @@
 package com.mclogistics.api.items;
 
 import com.mclogistics.api.util.constant.Constants;
-import com.mclogistics.client.renderer.item.CourierTankItemRender;
+import com.mclogistics.core.client.renderer.items.CourierTankItemRender;
 import com.mclogistics.core.items.ItemCourierTank;
 import com.mclogistics.core.items.ItemScepterInventorySelector;
 import com.mclogistics.core.items.ItemScepterMachinist;

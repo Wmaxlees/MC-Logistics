@@ -10,10 +10,6 @@ public final class TranslationConstant {
   public static final String MACHINIST_HAS_NO_OUTPUT = "com.mclogistics.gui.machinist.no_output";
 
   @NonNls
-  public static final String MACHINIST_INPUT_TOO_SMALL =
-      "com.mclogistics.gui.machinist.input_too_small";
-
-  @NonNls
   public static final String FLUID_WAREHOUSE_MANAGER_NO_FLUIDS =
       "com.mclogistics.gui.fluid_warehouse_manager.no_fluids";
 

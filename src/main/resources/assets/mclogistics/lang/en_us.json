@@ -1,2 +1,20 @@
 {
+  "com.mclogistics.building.fluid_warehouse": "Fluid Warehouse",
+  "com.mclogistics.building.fluid_warehouse.desc": "A building where your colonists can store fluids.",
+  "com.mclogistics.building.fluid_warehouse.name": "Fluid Warehouse",
+  "com.mclogistics.building.machinist": "Machinist",
+  "com.mclogistics.building.machinist.desc": "Define custom recipes with custom input and output locations.",
+  "com.mclogistics.building.machinist.name": "Machinist",
+  "com.mclogistics.core.request.courier_tank": "Courier Tank Request",
+  "com.mclogistics.core.request.courier_tanks": "Courier Tanks Request",
+  "com.mclogistics.gui.machinist.no_input": "No Input Location Defined",
+  "com.mclogistics.gui.machinist.no_output": "No Output Location Selected",
+  "com.mclogistics.job.fluid_warehouse_manager": "Warehouse Manager",
+  "com.mclogistics.gui.fluid_warehouse_manager.no_available_tanks": "No Tanks Available To Store Fluid",
+  "com.mclogistics.gui.fluid_warehouse_manager.no_fluids": "No New Fluids To Store",
+  "com.mclogistics.job.machinist": "Machinist",
+  "com.minecolonies.coremod.gui.tooldesc.scepter_machinist_input": "Input Selector",
+  "com.minecolonies.coremod.gui.tooldesc.scepter_machinist_output": "Output Selector",
+  "com.minecolonies.coremod.gui.tooldesc.scepter_inventory_tank": "Tank Selector",
+  "com.minecolonies.coremod.gui.workerhuts.recipe.machinist": "Define Recipes"
 }

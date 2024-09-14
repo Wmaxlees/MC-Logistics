@@ -12,18 +12,11 @@ import net.minecraft.world.entity.player.Player;
 
 public class ListJobsCommand {
   public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
-    dispatcher.register(
-        Commands.literal("all_jobs")
-            .executes(
-                (command) -> {
-                  return execute(command);
-                }));
+    dispatcher.register(Commands.literal("all_jobs").executes(ListJobsCommand::execute));
   }
 
   private static int execute(CommandContext<CommandSourceStack> command) {
-    if (command.getSource().getEntity() instanceof Player) {
-      Player player = (Player) command.getSource().getEntity();
-      String message = "";
+    if (command.getSource().getEntity() instanceof Player player) {
       for (ResourceLocation item : MinecoloniesAPIProxy.getInstance().getJobRegistry().getKeys()) {
         player.sendSystemMessage(Component.literal(item.getNamespace() + ":" + item.getPath()));
       }

@@ -1,4 +1,4 @@
-package com.mclogistics.client.renderer.item;
+package com.mclogistics.core.client.renderer.items;
 
 import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.world.item.ItemStack;

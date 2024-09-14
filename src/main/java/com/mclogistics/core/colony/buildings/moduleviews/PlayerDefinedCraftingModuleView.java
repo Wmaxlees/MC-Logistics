@@ -34,4 +34,9 @@ public class PlayerDefinedCraftingModuleView extends CraftingModuleView {
         Constants.MINECOLONIES_MOD_ID + ":gui/layouthuts/layoutlistrecipes.xml",
         this);
   }
+
+  @Override
+  public String getIcon() {
+    return "info";
+  }
 }

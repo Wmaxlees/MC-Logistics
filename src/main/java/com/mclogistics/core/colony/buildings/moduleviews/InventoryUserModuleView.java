@@ -32,11 +32,6 @@ public class InventoryUserModuleView extends AbstractBuildingModuleView {
   }
 
   @Override
-  public String getIcon() {
-    return "";
-  }
-
-  @Override
   public String getDesc() {
     return "";
   }
@@ -47,5 +42,10 @@ public class InventoryUserModuleView extends AbstractBuildingModuleView {
 
   public List<BlockPos> getChests() {
     return chests;
+  }
+
+  @Override
+  public String getIcon() {
+    return "info";
   }
 }

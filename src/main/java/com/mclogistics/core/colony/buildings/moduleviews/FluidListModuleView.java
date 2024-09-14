@@ -110,6 +110,6 @@ public class FluidListModuleView extends AbstractBuildingModuleView {
 
   @Override
   public String getIcon() {
-    return this.getId();
+    return "info";
   }
 }

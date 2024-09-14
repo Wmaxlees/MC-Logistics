@@ -12,18 +12,11 @@ import net.minecraft.world.entity.player.Player;
 
 public class ListBuildingsCommand {
   public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
-    dispatcher.register(
-        Commands.literal("all_buildings")
-            .executes(
-                (command) -> {
-                  return execute(command);
-                }));
+    dispatcher.register(Commands.literal("all_buildings").executes(ListBuildingsCommand::execute));
   }
 
   private static int execute(CommandContext<CommandSourceStack> command) {
-    if (command.getSource().getEntity() instanceof Player) {
-      Player player = (Player) command.getSource().getEntity();
-      String message = "";
+    if (command.getSource().getEntity() instanceof Player player) {
       for (ResourceLocation item :
           MinecoloniesAPIProxy.getInstance().getBuildingRegistry().getKeys()) {
         player.sendSystemMessage(Component.literal(item.getNamespace() + ":" + item.getPath()));
