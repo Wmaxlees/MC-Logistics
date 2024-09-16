@@ -28,6 +28,7 @@ public class ModCreativeTabs {
                       (config, output) -> {
                         output.accept(ModBlocks.blockHutMachinist);
                         output.accept(ModBlocks.blockHutFluidWarehouse);
+                        output.accept(ModBlocks.blockHutItemWarehouse);
                       })
                   .build());
 

@@ -2,6 +2,7 @@
   "com.mclogistics.building.fluid_warehouse": "Fluid Warehouse",
   "com.mclogistics.building.fluid_warehouse.desc": "A building where your colonists can store fluids.",
   "com.mclogistics.building.fluid_warehouse.name": "Fluid Warehouse",
+  "com.mclogistics.building.item.warehouse.name": "Item Warehouse",
   "com.mclogistics.building.machinist": "Machinist",
   "com.mclogistics.building.machinist.desc": "Define custom recipes with custom input and output locations.",
   "com.mclogistics.building.machinist.name": "Machinist",

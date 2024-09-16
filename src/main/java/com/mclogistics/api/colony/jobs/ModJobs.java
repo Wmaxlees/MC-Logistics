@@ -2,6 +2,7 @@ package com.mclogistics.api.colony.jobs;
 
 import com.mclogistics.api.util.constant.Constants;
 import com.mclogistics.core.colony.jobs.JobFluidWarehouseManager;
+import com.mclogistics.core.colony.jobs.JobItemWarehouseManager;
 import com.mclogistics.core.colony.jobs.JobMachinist;
 import com.minecolonies.api.colony.jobs.registry.JobEntry;
 import com.minecolonies.core.colony.jobs.views.CrafterJobView;
@@ -15,9 +16,12 @@ public final class ModJobs {
       new ResourceLocation(Constants.MOD_ID, "machinist");
   public static final ResourceLocation FLUID_WAREHOUSE_MANAGER_ID =
       new ResourceLocation(Constants.MOD_ID, "fluidwarehousemanager");
+  public static final ResourceLocation ITEM_WAREHOUSE_MANAGER_ID =
+      new ResourceLocation(Constants.MOD_ID, "itemwarehousemanager");
 
   public static RegistryObject<JobEntry> machinist;
   public static RegistryObject<JobEntry> fluidwarehousemanager;
+  public static RegistryObject<JobEntry> itemwarehousemanager;
 
   private ModJobs() {
     throw new IllegalStateException("Tried to initialize: ModJobs but this is a Utility class.");
@@ -48,8 +52,19 @@ public final class ModJobs {
                     .setRegistryName(ModJobs.FLUID_WAREHOUSE_MANAGER_ID)
                     .createJobEntry());
 
+    itemwarehousemanager =
+        DEFERRED_REGISTER.register(
+            ITEM_WAREHOUSE_MANAGER_ID.getPath(),
+            () ->
+                new JobEntry.Builder()
+                    .setJobProducer(JobItemWarehouseManager::new)
+                    .setJobViewProducer(() -> DefaultJobView::new)
+                    .setRegistryName(ModJobs.ITEM_WAREHOUSE_MANAGER_ID)
+                    .createJobEntry());
+
     // REMOVE THESE ONCE SOUNDS ARE NOT RELIANT ON THIS ARRAY
     com.minecolonies.api.colony.jobs.ModJobs.jobs.add(ModJobs.MACHINIST_ID);
     com.minecolonies.api.colony.jobs.ModJobs.jobs.add(ModJobs.FLUID_WAREHOUSE_MANAGER_ID);
+    com.minecolonies.api.colony.jobs.ModJobs.jobs.add(ModJobs.ITEM_WAREHOUSE_MANAGER_ID);
   }
 }

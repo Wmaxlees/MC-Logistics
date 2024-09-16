@@ -3,6 +3,7 @@ package com.mclogistics.core.colony.requestsystem.init;
 import com.mclogistics.core.colony.requestsystem.requests.CourierTankRequestFactory;
 import com.mclogistics.core.colony.requestsystem.requests.CourierTanksRequestFactory;
 import com.mclogistics.core.colony.requestsystem.resolvers.factory.FluidWarehouseRequestResolverFactory;
+import com.mclogistics.core.colony.requestsystem.resolvers.factory.ItemWarehouseRequestResolverFactory;
 import com.minecolonies.api.colony.requestsystem.StandardFactoryController;
 
 public final class StandardFactoryControllerInitializer {
@@ -15,5 +16,7 @@ public final class StandardFactoryControllerInitializer {
     StandardFactoryController.getInstance().registerNewFactory(new CourierTanksRequestFactory());
     StandardFactoryController.getInstance()
         .registerNewFactory(new FluidWarehouseRequestResolverFactory());
+    StandardFactoryController.getInstance()
+        .registerNewFactory(new ItemWarehouseRequestResolverFactory());
   }
 }

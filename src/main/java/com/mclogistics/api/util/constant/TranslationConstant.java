@@ -20,4 +20,20 @@ public final class TranslationConstant {
   @NonNls
   public static final String BUILDING_FLUID_WAREHOUSE_NAME =
       "com.mclogistics.building.fluid_warehouse.name";
+
+  @NonNls
+  public static final String BUILDING_ITEM_WAREHOUSE_NAME =
+      "com.mclogistics.building.item.warehouse.name";
+
+  @NonNls
+  public static final String ITEM_WAREHOUSE_MANAGER_NO_ITEMS =
+      "com.mclogistics.gui.item_warehouse_warehouse.no_items";
+
+  @NonNls
+  public static final String ITEM_WAREHOUSE_MANAGER_NO_ALLOWED_ITEMS =
+      "com.mclogistics.gui.item_warehouse_warehouse.no_allowed_items";
+
+  @NonNls
+  public static final String ITEM_WAREHOUSE_MANAGER_NO_AVAILABLE_CHESTS =
+      "com.mclogistics.gui.item_warehouse.no_available_chests";
 }

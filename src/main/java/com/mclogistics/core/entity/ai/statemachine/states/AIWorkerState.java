@@ -17,7 +17,13 @@ public enum AIWorkerState implements IAIState {
   /** Moving to a tank to empty. */
   MOVE_TO_TANK_TO_EMPTY(true),
   /** Emptying the courier tank. */
-  EMPTY_TANK(true);
+  EMPTY_TANK(true),
+
+  /*
+  ###ITEM WAREHOUSE MANAGER
+   */
+  STORE_ITEMS(true),
+  COLLECT_ITEMS_TO_STORE(true);
 
   /** Is it okay to eat. */
   private boolean isOkayToEat;

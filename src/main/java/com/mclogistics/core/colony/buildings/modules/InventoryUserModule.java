@@ -4,8 +4,12 @@ import com.mclogistics.api.items.ModItems;
 import com.mclogistics.core.items.capabilities.CourierTankFluidHandler;
 import com.minecolonies.api.colony.buildings.modules.AbstractBuildingModule;
 import com.minecolonies.api.colony.buildings.modules.IPersistentModule;
+import com.minecolonies.api.util.InventoryUtils;
+import com.minecolonies.api.util.Tuple;
+import com.minecolonies.api.util.WorldUtil;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 import javafx.util.Pair;
 import net.minecraft.core.BlockPos;
@@ -21,6 +25,7 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.items.IItemHandler;
 import org.jetbrains.annotations.NotNull;
 
 public class InventoryUserModule extends AbstractBuildingModule implements IPersistentModule {
@@ -203,5 +208,32 @@ public class InventoryUserModule extends AbstractBuildingModule implements IPers
 
   public List<BlockPos> getChests() {
     return chests;
+  }
+
+  public List<Tuple<ItemStack, BlockPos>> getMatchingItemStacks(
+      @NotNull final Predicate<ItemStack> itemStackSelectionPredicate) {
+    List<Tuple<ItemStack, BlockPos>> found = new ArrayList<>();
+
+    if (getBuilding() != null) {
+      for (@NotNull final BlockPos pos : getBuilding().getContainers()) {
+        if (WorldUtil.isBlockLoaded(building.getColony().getWorld(), pos)) {
+          final BlockEntity entity = building.getColony().getWorld().getBlockEntity(pos);
+
+          Optional<IItemHandler> handler =
+              entity.getCapability(ForgeCapabilities.ITEM_HANDLER).resolve();
+
+          if (handler.isPresent()
+              && InventoryUtils.getItemCountInItemHandler(
+                      handler.get(), itemStackSelectionPredicate)
+                  > 0) {
+            for (final ItemStack stack :
+                (InventoryUtils.filterItemHandler(handler.get(), itemStackSelectionPredicate))) {
+              found.add(new Tuple<>(stack, pos));
+            }
+          }
+        }
+      }
+    }
+    return found;
   }
 }

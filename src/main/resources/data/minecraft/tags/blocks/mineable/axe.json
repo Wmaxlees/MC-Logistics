@@ -1,6 +1,7 @@
 {
     "values": [
         "mclogistics:blockhutmachinist",
-        "mclogistics:blockhutfluidwarehouse"
+        "mclogistics:blockhutfluidwarehouse",
+        "mclogistics:blockhutitemwarehouse"
     ]
 }

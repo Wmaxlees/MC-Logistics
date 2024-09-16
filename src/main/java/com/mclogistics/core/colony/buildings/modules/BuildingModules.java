@@ -9,10 +9,15 @@ import com.mclogistics.api.util.constant.translation.RequestSystemTranslatableCo
 import com.mclogistics.core.colony.buildings.moduleviews.FluidListModuleView;
 import com.mclogistics.core.colony.buildings.moduleviews.InventoryUserModuleView;
 import com.mclogistics.core.colony.buildings.moduleviews.PlayerDefinedCraftingModuleView;
+import com.mclogistics.core.entity.ai.workers.storage.EntityAIWorkItemWarehouseManager;
+import com.minecolonies.api.colony.IColonyManager;
 import com.minecolonies.api.colony.buildings.modules.IBuildingModule;
 import com.minecolonies.api.colony.buildings.registry.BuildingEntry;
 import com.minecolonies.api.entity.citizen.Skill;
 import com.minecolonies.core.colony.buildings.modules.CraftingWorkerBuildingModule;
+import com.minecolonies.core.colony.buildings.modules.ItemListModule;
+import com.minecolonies.core.colony.buildings.modules.WorkerBuildingModule;
+import com.minecolonies.core.colony.buildings.moduleviews.ItemListModuleView;
 import com.minecolonies.core.colony.buildings.moduleviews.ToolModuleView;
 import com.minecolonies.core.colony.buildings.moduleviews.WorkerBuildingModuleView;
 import java.util.HashSet;
@@ -33,6 +38,29 @@ public class BuildingModules {
               "fluid_inventory_tool",
               null,
               () -> () -> new ToolModuleView(ModItems.scepterInventoryTank.get()));
+
+  public static final BuildingEntry.ModuleProducer<IBuildingModule, ToolModuleView>
+      CHEST_SELECTOR_TOOL =
+          new BuildingEntry.ModuleProducer<>(
+              "item_inventory_tool",
+              null,
+              () -> () -> new ToolModuleView(ModItems.scepterInventoryChest.get()));
+
+  public static final BuildingEntry.ModuleProducer<ItemListModule, ItemListModuleView>
+      ITEM_WAREHOUSE_LIST =
+          new BuildingEntry.ModuleProducer<>(
+              "item_warehouse_list",
+              () -> new ItemListModule(EntityAIWorkItemWarehouseManager.ITEM_WAREHOUSE_LIST),
+              () ->
+                  () ->
+                      new ItemListModuleView(
+                          EntityAIWorkItemWarehouseManager.ITEM_WAREHOUSE_LIST,
+                          "All Items",
+                          true,
+                          (buildingView) ->
+                              IColonyManager.getInstance()
+                                  .getCompatibilityManager()
+                                  .getSetOfAllItems()));
 
   /** Craftmanship */
   public static final BuildingEntry.ModuleProducer<
@@ -77,14 +105,12 @@ public class BuildingModules {
           new BuildingEntry.ModuleProducer<>(
               "fluid_warehouse_work",
               () ->
-                  new CraftingWorkerBuildingModule(
+                  new WorkerBuildingModule(
                       ModJobs.fluidwarehousemanager.get(),
                       Skill.Strength,
                       Skill.Focus,
                       false,
-                      (b) -> 1,
-                      Skill.Strength,
-                      Skill.Focus),
+                      (b) -> 1),
               () -> WorkerBuildingModuleView::new);
 
   public static final BuildingEntry.ModuleProducer<FluidListModule, FluidListModuleView>
@@ -105,4 +131,17 @@ public class BuildingModules {
                                           fluid ->
                                               new FluidStorage(new FluidStack(fluid, 1000), 1000))
                                       .toList())));
+
+  public static final BuildingEntry.ModuleProducer<IBuildingModule, WorkerBuildingModuleView>
+      ITEM_WAREHOUSE_WORK =
+          new BuildingEntry.ModuleProducer<>(
+              "item_warehouse_work",
+              () ->
+                  new WorkerBuildingModule(
+                      ModJobs.itemwarehousemanager.get(),
+                      Skill.Strength,
+                      Skill.Focus,
+                      false,
+                      (b) -> 1),
+              () -> WorkerBuildingModuleView::new);
 }

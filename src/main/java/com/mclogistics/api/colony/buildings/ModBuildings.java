@@ -6,8 +6,10 @@ import static com.mclogistics.core.colony.buildings.modules.BuildingModules.TANK
 import com.mclogistics.api.blocks.ModBlocks;
 import com.mclogistics.api.util.constant.Constants;
 import com.mclogistics.core.colony.buildings.workerbuildings.BuildingFluidWarehouse;
+import com.mclogistics.core.colony.buildings.workerbuildings.BuildingItemWarehouse;
 import com.mclogistics.core.colony.buildings.workerbuildings.BuildingMachinist;
 import com.minecolonies.api.colony.buildings.registry.BuildingEntry;
+import com.minecolonies.core.colony.buildings.views.EmptyView;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
@@ -15,8 +17,10 @@ import net.minecraftforge.registries.RegistryObject;
 public class ModBuildings {
   public static final String MACHINIST_ID = "machinist";
   public static final String FLUID_WAREHOUSE_ID = "fluidwarehouse";
+  public static final String ITEM_WAREHOUSE_ID = "itemwarehouse";
   public static RegistryObject<BuildingEntry> machinist;
   public static RegistryObject<BuildingEntry> fluidWarehouse;
+  public static RegistryObject<BuildingEntry> itemWarehouse;
 
   public static final DeferredRegister<BuildingEntry> DEFERRED_REGISTER =
       DeferredRegister.create(
@@ -46,13 +50,29 @@ public class ModBuildings {
                 new BuildingEntry.Builder()
                     .setBuildingBlock(ModBlocks.blockHutFluidWarehouse)
                     .setBuildingProducer(BuildingFluidWarehouse::new)
-                    .setBuildingViewProducer(() -> BuildingMachinist.View::new)
+                    .setBuildingViewProducer(() -> EmptyView::new)
                     .setRegistryName(
                         new ResourceLocation(Constants.MOD_ID, ModBuildings.FLUID_WAREHOUSE_ID))
                     .addBuildingModuleProducer(FLUID_WAREHOUSE_WORK)
                     .addBuildingModuleProducer(FLUID_LIST_COURIER_TANKS)
                     .addBuildingModuleProducer(INVENTORY_USER)
                     .addBuildingModuleProducer(TANK_SELECTOR_TOOL)
+                    .createBuildingEntry());
+
+    ModBuildings.itemWarehouse =
+        DEFERRED_REGISTER.register(
+            ModBuildings.ITEM_WAREHOUSE_ID,
+            () ->
+                new BuildingEntry.Builder()
+                    .setBuildingBlock(ModBlocks.blockHutItemWarehouse)
+                    .setBuildingProducer(BuildingItemWarehouse::new)
+                    .setBuildingViewProducer(() -> EmptyView::new)
+                    .setRegistryName(
+                        new ResourceLocation(Constants.MOD_ID, ModBuildings.ITEM_WAREHOUSE_ID))
+                    .addBuildingModuleProducer(ITEM_WAREHOUSE_WORK)
+                    .addBuildingModuleProducer(ITEM_WAREHOUSE_LIST)
+                    .addBuildingModuleProducer(INVENTORY_USER)
+                    .addBuildingModuleProducer(CHEST_SELECTOR_TOOL)
                     .createBuildingEntry());
   }
 
