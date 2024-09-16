@@ -5,7 +5,6 @@ import static com.mclogistics.core.entity.ai.statemachine.states.AIWorkerState.*
 import static com.minecolonies.api.entity.ai.statemachine.states.AIWorkerState.*;
 
 import com.google.common.reflect.TypeToken;
-import com.mclogistics.api.util.Logger;
 import com.mclogistics.core.colony.buildings.modules.InventoryUserModule;
 import com.mclogistics.core.colony.buildings.workerbuildings.BuildingItemWarehouse;
 import com.mclogistics.core.colony.jobs.JobItemWarehouseManager;
@@ -104,10 +103,8 @@ public class EntityAIWorkItemWarehouseManager
     }
 
     if (walkTo == null) {
-      Logger.InfoLog("Have no target containers yet. Checking for available items.");
       final List<BlockPos> allContainers = building.getContainers();
       for (final BlockPos container : allContainers) {
-        Logger.InfoLog("Checking Container at: {}", container);
         BlockEntity blockEntity = world.getBlockEntity(container);
         if (blockEntity instanceof TileEntityRack rack
             && rack.hasItemStack(stack -> allowedItems.contains(new ItemStorage(stack)))) {
@@ -122,11 +119,9 @@ public class EntityAIWorkItemWarehouseManager
     }
 
     if (walkToBlock(walkTo)) {
-      Logger.InfoLog("Walking to target block for collecting items {}", walkTo);
       return getState();
     }
 
-    Logger.InfoLog("Collecting items from {}", walkTo);
     if (!getAllItemsToStoreFrom(walkTo)) {
       walkTo = null;
       return START_WORKING;
@@ -139,7 +134,6 @@ public class EntityAIWorkItemWarehouseManager
   private boolean getAllItemsToStoreFrom(BlockPos containerPos) {
     Optional<IItemHandler> rackHandler = getItemHandlerFrom(containerPos);
     if (rackHandler.isEmpty()) {
-      Logger.InfoLog("The target block doesn't actually have an item handler.");
       building.removeContainerPosition(containerPos);
       return false;
     }
@@ -149,11 +143,9 @@ public class EntityAIWorkItemWarehouseManager
             .getModuleMatching(ItemListModule.class, m -> m.getId().equals(ITEM_WAREHOUSE_LIST))
             .getList();
     if (allowedItems.isEmpty()) {
-      Logger.InfoLog("No allowed items :(");
       return false;
     }
 
-    Logger.InfoLog("Attempting to transfer items to worker's inventory.");
     return InventoryUtils.transferItemStackIntoNextBestSlotInItemHandler(
         rackHandler.get(),
         stack -> allowedItems.contains(new ItemStorage(stack)),
@@ -192,7 +184,8 @@ public class EntityAIWorkItemWarehouseManager
                 new StackList(
                     allowedItems.stream().map(ItemStorage::getItemStack).toList(),
                     "Item Warehouse",
-                    Integer.MAX_VALUE));
+                    Integer.MAX_VALUE,
+                    1));
       }
     }
   }
